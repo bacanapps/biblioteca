@@ -7,6 +7,8 @@
   <link rel="manifest" href="./manifest.json" />
   <!-- Use the same icon for now; replace with a custom library icon if desired -->
   <link rel="icon" href="./assets/img/hero.png" />
+  <link rel="stylesheet" href="./assets/css/theme.css">
+  <link rel="stylesheet" href="./assets/css/app.css">   
   <!-- Books detail page styles -->
   <!-- Books detail page styles injected relative to the current document location.
        This ensures the stylesheet resolves correctly whether the app is served from
@@ -45,7 +47,7 @@
       if (typeof React !== 'undefined' && typeof ReactDOM !== 'undefined') {
         const script = document.createElement('script');
         script.type = 'text/javascript';
-        script.src = '/app.js';
+        script.src = './app.js';
         script.onload = () => console.log('Aplicação carregada com sucesso');
         script.onerror = (e) => console.error('Falha ao carregar a aplicação:', e);
         document.head.appendChild(script);
