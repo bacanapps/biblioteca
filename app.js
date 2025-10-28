@@ -778,10 +778,17 @@
 
     const heroImage =
       resolveAssetPath(data.heroImage) || resolveAssetPath('./assets/img/hero.png');
+    // BEFORE returning the per-item element, derive a subpath-safe audio URL
     const audioSrc =
-      resolveAssetPath(
-        data.audioDescription && (data.audioDescription.src || data.audioDescription.url)
-      ) || resolveAssetPath('./assets/audio/presentation.mp3');
+      toRelative(book.audio || book.audioSrc || './assets/audio/presentation.mp3');
+
+// ...inside the per-item render (e.g., after title/metadata):
+h('button', {
+  type: 'button',
+  className: 'btn btn-green',
+  'data-audio-id': `pub-${idx}`,   // stable id per card
+  'data-audio-src': audioSrc        // actual audio path (relative)
+}, '▶️ Ouvir')
 
     const isActive = audio.playingId === audioId;
     const isPlaying = isActive && audio.isPlaying;
