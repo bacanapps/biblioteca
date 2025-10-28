@@ -3,6 +3,70 @@
   const e = React.createElement;
   console.debug('[app] initializing app.js');
 
+
+// ---- Audio helper (safe to add once) ----
+(function () {
+  if (window.__audioController) return;
+
+  const toRelative = (url) => {
+    if (!url) return url;
+    if (/^https?:\/\//i.test(url)) return url;
+    if (url.startsWith('/')) return `.${url}`;
+    return url;
+  };
+
+  let current = { id: null, howl: null };
+
+  function teardown(stop = true) {
+    if (current.howl) {
+      try { if (stop) current.howl.stop(); } catch {}
+      try { current.howl.unload(); } catch {}
+    }
+    current = { id: null, howl: null };
+  }
+
+  function toggleAudio(id, src) {
+    const HowlCtor = window.Howl || (window.Howler && window.Howler.Howl);
+    if (!HowlCtor) { console.warn('Howler not loaded'); return; }
+    if (!id || !src) return;
+
+    src = toRelative(src);
+
+    // Same button toggles pause/resume
+    if (current.id === id && current.howl) {
+      if (current.howl.playing()) current.howl.pause();
+      else current.howl.play();
+      return;
+    }
+
+    // New sound: stop previous, start new
+    teardown();
+    current = {
+      id,
+      howl: new HowlCtor({
+        src: [src],
+        html5: true,        // required for mobile + long audio on Pages
+        preload: true,
+        onend: () => teardown(false),
+        onstop: () => teardown(false)
+      })
+    };
+    current.howl.play();
+  }
+
+  // Delegate clicks: any element with [data-audio-src] will toggle
+  document.addEventListener('click', (ev) => {
+    const el = ev.target.closest('[data-audio-src]');
+    if (!el) return;
+    ev.preventDefault();
+    const id = el.getAttribute('data-audio-id') || el.id || el.textContent.trim();
+    const src = el.getAttribute('data-audio-src');
+    toggleAudio(id, src);
+  }, { capture: true });
+
+  window.__audioController = { toggleAudio, teardown, toRelative };
+})();
+
   // Helpful runtime error overlay for debugging a blank/white page.
   function showFatalError(message, err) {
     try {
