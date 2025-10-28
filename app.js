@@ -1,6 +1,9 @@
 (() => {
   const { useState, useEffect, useMemo, useCallback, useRef } = React;
   const e = React.createElement;
+  // Aliases to support older snippets that used `f(...)` or `h(...)`
+  const f = e;
+  const h = e;
   console.debug('[app] initializing app.js');
 
 
