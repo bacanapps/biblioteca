@@ -1,3 +1,821 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5c131b689ae8ee1f385a7615d96d94e5e9a8f498d89a6dc3723ac64f1d63f2b8
-size 17771
+/* --- App-level styles originally inline in index.html --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --secondary: #10b981;
+  --secondary-dark: #059669;
+  --accent: #8b5cf6;
+  --accent-dark: #7c3aed;
+  --surface: rgba(15, 23, 42, 0.8);
+  --surface-strong: rgba(15, 23, 42, 0.92);
+  --surface-soft: rgba(30, 41, 59, 0.6);
+  --border: rgba(148, 163, 184, 0.16);
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --muted: #94a3b8;
+  --tag-bg: rgba(148, 163, 184, 0.1);
+  --tag-text: #e2e8f0;
+  --gradient-hero: radial-gradient(120% 120% at 0% 0%, rgba(59, 130, 246, 0.28) 0%, rgba(59, 130, 246, 0) 60%), radial-gradient(140% 140% at 100% 0%, rgba(16, 185, 129, 0.28) 0%, rgba(16, 185, 129, 0) 65%), linear-gradient(135deg, #0f172a 0%, #111827 45%, #101926 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overscroll-behavior: none;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--gradient-hero);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app-shell {
+  min-height: 100vh;
+  padding: 20px 24px 64px;
+  display: flex;
+  justify-content: center;
+  background: var(--gradient-hero);
+}
+
+.page {
+  width: 100%;
+  max-width: 1120px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Homepage specific styles */
+.hero-home {
+  text-align: center;
+  padding: 64px 32px;
+  border-radius: 32px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-home::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at top right, rgba(139, 92, 246, 0.15), transparent 50%),
+    radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.15), transparent 50%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--surface-soft);
+  border-radius: 999px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-size: clamp(36px, 6vw, 48px);
+  font-weight: 800;
+  margin-bottom: 24px;
+  line-height: 1.2;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-lead {
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 640px;
+  margin: 0 auto 32px;
+  color: var(--text-secondary);
+}
+
+.hero-highlights {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.highlight-chip {
+  padding: 6px 16px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* Card grid layout */
+.home-grid-section {
+  padding: 0 16px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+/* Route cards */
+.route-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.route-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  opacity: 0.1;
+  transition: opacity 0.3s ease;
+}
+
+.route-card:hover::after {
+  opacity: 0.2;
+}
+
+.route-card-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.route-card-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.route-card-description {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+  flex: 1;
+}
+
+.route-card-action {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-top: 8px;
+}
+
+/* Filter tabs and view controls */
+.filter-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+  padding: 4px;
+  background: var(--surface-soft);
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+
+.view-toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 18px;
+}
+
+.view-toggle-button:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.view-toggle-active {
+  background: var(--primary);
+  color: white;
+}
+
+.view-toggle-active:hover {
+  background: var(--primary-dark);
+  color: white;
+}
+
+.filter-chip {
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  background: var(--surface-soft);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-chip:hover {
+  transform: translateY(-2px);
+  border-color: rgba(148, 163, 184, 0.3);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.2);
+}
+
+.filter-chip-active {
+  background: var(--primary);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.25);
+}
+
+.glass-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 32px;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 24px 50px -28px rgba(15, 23, 42, 0.8);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(148, 163, 184, 0.3);
+  box-shadow: 0 28px 60px -26px rgba(14, 23, 42, 0.85);
+}
+
+.gradient-primary {
+  background-image: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(60, 84, 246, 0));
+}
+
+.gradient-secondary {
+  background-image: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(16, 185, 129, 0));
+}
+
+.gradient-accent {
+  background-image: linear-gradient(135deg, rgba(139, 92, 246, 0.18), rgba(139, 92, 246, 0));
+}
+
+/* Simple animations for page transitions */
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-surface {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.76) 60%, rgba(15, 23, 42, 0.88) 100%);
+}
+
+.hero {
+  position: relative;
+  padding: 56px;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(139, 92, 246, 0.2), transparent 55%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 620px;
+  z-index: 1;
+}
+
+/* (rest of the original inline styles omitted in this file for brevity) */
+
+/* Note: full inline rules were moved here to keep index.html minimal. If you need to further split tokens
+   (colors, spacing) into a small theme file for quicker updates across multiple PWAs, we can add that next. */
+/* Tuned detail page styles extracted from app.js
+   Purpose: match the attached screenshot for the Books detail page (card, tabs,
+   action buttons). Use relative paths so this works on file:// and hosted.
+*/
+
+/* Filter tabs (Tudo, Diagnostico, etc.) */
+.filter-tabs {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+
+.filter-tab {
+  background: var(--surface-soft);
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-tab:hover {
+  transform: translateY(-2px);
+  border-color: rgba(148, 163, 184, 0.3);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.2);
+}
+
+.filter-tab.active {
+  background: var(--primary);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.25);
+}
+
+/* Action buttons with proper gradients */
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.action-button.pdf {
+  background: linear-gradient(180deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+  color: white;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+}
+
+.action-button.audio {
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+  color: white;
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.25);
+}
+
+.action-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+/* Homepage hero section */
+.hero-section {
+  text-align: center;
+  padding: 64px 24px;
+  background: var(--gradient-hero);
+}
+
+.hero-title {
+  font-size: 48px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 24px;
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 48px;
+}
+
+/* Features list on homepage */
+.features-list {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.feature-item::before {
+  content: "•";
+  color: var(--primary);
+}
+
+/* Container / card */
+.books-page .glass-effect {
+  background: linear-gradient(180deg, rgba(8,18,30,0.84), rgba(10,14,20,0.86));
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 18px 40px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  padding: 32px;
+  border-radius: 16px;
+}
+
+/* Cover image */
+.books-page .glass-effect .book-cover,
+.books-page .glass-effect .book-cover-list,
+.books-page .glass-effect img {
+  border-radius: 12px;
+  background: #f3f4f6;
+  max-height: 320px;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Title and meta */
+.books-page .text-2xl,
+.books-page .page-title,
+.books-page h2,
+.books-page .book-title {
+  color: #ffffff;
+}
+.books-page .text-gray-400,
+.books-page .book-meta {
+  color: #9fb0c7;
+}
+
+/* Action buttons and controls */
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(148, 163, 184, 0.3);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.2);
+}
+
+.back-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Audio playback controls */
+.audio-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+  color: white !important;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.25);
+  transition: all 0.2s ease;
+}
+
+.audio-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.audio-button-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.audio-button-active {
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
+}
+
+/* Action buttons: PDF (green) and general gradients */
+.gradient-secondary,
+.gradient-secondary:link,
+.gradient-secondary:visited,
+a[href$=".pdf"],
+.button-pdf {
+  background: linear-gradient(180deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+  color: white !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+  transition: all 0.2s ease;
+}
+
+.gradient-secondary:hover,
+.gradient-secondary:link:hover,
+.gradient-secondary:visited:hover,
+a[href$=".pdf"]:hover,
+.button-pdf:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.gradient-accent,
+.gradient-accent:link,
+.gradient-accent:visited,
+.button-audio {
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+  color: white !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.25);
+  transition: all 0.2s ease;
+}
+
+.gradient-accent:hover,
+.gradient-accent:link:hover,
+.gradient-accent:visited:hover,
+.button-audio:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+/* Make built-in button-modern less intense when used alongside gradients */
+.button-modern.gradient-secondary,
+.button-modern.gradient-accent {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Tab pills */
+.books-page .px-4.py-2.rounded-full {
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.03);
+  color: #cbd5e1;
+  border: 1px solid rgba(255,255,255,0.03);
+  transition: all .14s ease;
+  font-size: 14px;
+}
+.books-page .px-4.py-2.rounded-full:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(2,6,23,0.45);
+}
+.books-page .gradient-secondary.text-white {
+  background: linear-gradient(180deg,#10b981,#0ea673) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 30px rgba(16,185,129,0.16);
+}
+
+/* Tab content styles */
+.books-page .prose,
+.books-page .tab-content,
+.books-page .space-y-6 {
+  color: #cbd5e1;
+  line-height: 1.7;
+  font-size: 15px;
+}
+.books-page .tab-content h3,
+.books-page .tab-content h2,
+.books-page .tab-content h1 {
+  color: #1e3a8a; /* deep blue for section headings */
+  margin-top: 0;
+}
+.books-page .tab-content a { color: #60a5fa; text-decoration: underline; }
+
+/* Container width tuned to screenshot */
+.books-page .max-w-4xl { max-width: 920px; }
+
+/* Books grid/list layouts */
+.books-results {
+  display: grid;
+  gap: 24px;
+  padding: 24px 0;
+}
+
+.books-grid {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.books-list {
+  grid-template-columns: 1fr;
+}
+
+/* Book cards - Grid view */
+.book-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.book-cover {
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: 12px;
+  background: var(--surface-soft);
+}
+
+/* Book cards - List view */
+.book-card-list {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 24px;
+  padding: 24px;
+}
+
+.book-cover-list {
+  width: 160px;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--surface-soft);
+}
+
+.book-list-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.book-list-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (max-width: 640px) {
+  .book-card-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .book-cover-list {
+    width: 100%;
+    max-width: 240px;
+    margin: 0 auto;
+  }
+}
+
+/* Small helpers */
+.books-page .flex { align-items: center; }
+
+/* Book actions and chips */
+.book-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.book-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.book-chip:hover {
+  transform: translateY(-2px);
+  border-color: rgba(148, 163, 184, 0.3);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.2);
+}
+
+.book-chip.book-chip-pdf {
+  background: linear-gradient(180deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+}
+
+.book-chip.book-chip-audio {
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-dark) 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.25);
+}
+
+.book-chip-active {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.chip-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* Tabs container and pill tweaks */
+.books-page .tabs-row {
+    gap: 14px;
+    margin-bottom: 18px;
+    margin-top: 18px;
+.books-page .tab-pill {
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.03);
+  color: #cbd5e1;
+  border: 1px solid rgba(255,255,255,0.03);
+  transition: transform .14s ease, box-shadow .14s ease;
+  font-size: 14px;
+}
+.books-page .tab-pill:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(2,6,23,0.45); }
+.books-page .tab-pill.gradient-secondary.text-white { box-shadow: 0 10px 30px rgba(16,185,129,0.16); }
+
+/* Ensure the block with description has spacing similar to screenshot */
+.books-page .space-y-6 { margin-top: 8px; }
+
+/* Books toolbar and controls */
+.books-toolbar {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.76) 60%, rgba(15, 23, 42, 0.88) 100%);
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.books-toolbar .filter-group {
+  flex: 1;
+  margin: 0;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .books-page .glass-effect { padding: 20px; }
+  .books-page .px-4.py-2.rounded-full { padding: 8px 12px; font-size: 13px; }
+  
+  .books-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  
+  .books-toolbar .filter-group {
+    order: 2;
+  }
+  
+  .view-toggle {
+    align-self: flex-end;
+    order: 1;
+  }
+}
