@@ -325,22 +325,23 @@
     return [];
   }
 
-  function resolveAssetPath(path) {
-    if (!path || typeof path !== 'string') return null;
-    const trimmed = path.trim();
-    if (!trimmed) return null;
-    if (/^(https?:)?\/\//i.test(trimmed)) {
-      return trimmed;
-    }
-    // Treat absolute-looking paths (starting with '/') as relative to the
-    // current document location so the app works when opened via file:// or
-    // served from a subpath. This creates a robust URL for assets.
-    if (trimmed.startsWith('/')) {
-      const withoutLeading = trimmed.replace(/^\//, '');
-      return new URL(withoutLeading, window.location.href).toString();
-    }
-    return new URL(trimmed, window.location.href).toString();
-  }
+  f// Replace your current resolveAssetPath with this:
+function resolveAssetPath(path) {
+  if (!path || typeof path !== 'string') return null;
+  const trimmed = path.trim();
+  if (!trimmed) return null;
+
+  // Keep absolute URLs
+  if (/^(https?:)?\/\//i.test(trimmed)) return trimmed;
+
+  // Build a base like: https://bacanapps.github.io/biblioteca/
+  const base = new URL('.', window.location.origin + window.location.pathname);
+
+  // If someone mistakenly passed "/assets/…", strip the leading slash
+  const cleaned = trimmed.startsWith('/') ? trimmed.slice(1) : trimmed;
+
+  return new URL(cleaned, base).toString();
+}
 
   function formatDuration(value) {
     if (value === undefined || value === null) return null;
