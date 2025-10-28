@@ -10,12 +10,12 @@
   "background_color": "#0f172a",
   "icons": [
     {
-      "src": "/assets/img/hero.png",
+      "src": "./assets/img/hero.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/assets/img/hero.png",
+      "src": "./assets/img/hero.png",
       "sizes": "512x512",
       "type": "image/png"
     }
