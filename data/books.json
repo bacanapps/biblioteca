@@ -1,0 +1,78 @@
+[
+  {
+    "id": "book1",
+    "title": "Protocolo Clínico e Diretrizes Terapêuticas (PCDT) HIV 2022",
+    "author": "Ministério da Saúde",
+    "year": 2022,
+    "tags": ["diagnostico", "tratamento"],
+    "cover": "/assets/img/book1.png",
+    "audioDescription": {
+      "src": "/assets/audio/ad1.wav",
+      "durationSec": 2
+    },
+    "synopsisHtml": "<p>Este documento oficial estabelece as diretrizes terapêuticas para o manejo do HIV no Sistema Único de Saúde (SUS), abrangendo recomendações de tratamento, monitoramento e acompanhamento clínico.</p>",
+    "analysisHtml": "<p>O PCDT HIV 2022 reúne evidências científicas e orienta profissionais de saúde sobre as melhores práticas para o cuidado das pessoas vivendo com HIV, reforçando a importância da adesão e do acompanhamento multidisciplinar.</p>",
+    "transcriptHtml": "<p>O Protocolo Clínico e Diretrizes Terapêuticas (PCDT) para o HIV foi elaborado com base em estudos científicos atualizados e visa orientar o diagnóstico e o tratamento das pessoas vivendo com HIV no SUS.</p>",
+    "sources": [
+      { "label": "Ministério da Saúde", "url": "https://www.gov.br/saude/pt-br" }
+    ],
+    "pdfUrl": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+  },
+  {
+    "id": "book2",
+    "title": "Manual Técnico para Diagnóstico da Infecção pelo HIV",
+    "author": "Ministério da Saúde",
+    "year": 2021,
+    "tags": ["diagnostico"],
+    "cover": "/assets/img/book2.png",
+    "audioDescription": {
+      "src": "/assets/audio/ad1.wav",
+      "durationSec": 2
+    },
+    "synopsisHtml": "<p>Manual que apresenta fluxos e critérios para o diagnóstico laboratorial da infecção pelo HIV, incluindo testes rápidos e confirmatórios.</p>",
+    "analysisHtml": "<p>O manual enfatiza a importância da qualidade e da confiabilidade dos exames diagnósticos, bem como o aconselhamento pré e pós-teste para garantir o cuidado integral.</p>",
+    "transcriptHtml": "<p>Este manual técnico descreve os métodos laboratoriais utilizados para diagnosticar a infecção pelo HIV e aborda os algoritmos recomendados para a confirmação dos resultados.</p>",
+    "sources": [
+      { "label": "Manual do Diagnóstico", "url": "https://www.gov.br" }
+    ],
+    "pdfUrl": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+  },
+  {
+    "id": "book3",
+    "title": "Recomendação 200 da OIT",
+    "author": "Organização Internacional do Trabalho",
+    "year": 2010,
+    "tags": ["direitos"],
+    "cover": "/assets/img/book3.png",
+    "audioDescription": {
+      "src": "/assets/audio/ad1.wav",
+      "durationSec": 2
+    },
+    "synopsisHtml": "<p>Esta recomendação internacional estabelece direitos trabalhistas e orientações de proteção para trabalhadores afetados pelo HIV e aids, promovendo a igualdade e a não discriminação no ambiente de trabalho.</p>",
+    "analysisHtml": "<p>A Recomendação 200 da OIT destaca a importância de políticas inclusivas e de apoio às pessoas vivendo com HIV/aids, prevenindo o estigma e garantindo o acesso a oportunidades de trabalho dignas.</p>",
+    "transcriptHtml": "<p>O documento define princípios para prevenir a discriminação no trabalho, proteger a privacidade dos trabalhadores e garantir acesso a cuidados de saúde e benefícios sociais.</p>",
+    "sources": [
+      { "label": "OIT", "url": "https://www.ilo.org" }
+    ],
+    "pdfUrl": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+  },
+  {
+    "id": "book4",
+    "title": "Vidas Positivas: Histórias de Coragem e Superação",
+    "author": "Coletivo PVHA",
+    "year": 2019,
+    "tags": ["outros"],
+    "cover": "/assets/img/book4.png",
+    "audioDescription": {
+      "src": "/assets/audio/ad1.wav",
+      "durationSec": 2
+    },
+    "synopsisHtml": "<p>Coletânea de relatos e crônicas escritas por pessoas vivendo com HIV que retratam experiências de vida, amor e luta contra o estigma.</p>",
+    "analysisHtml": "<p>Os textos revelam a diversidade de histórias e mostram como o apoio mútuo, a solidariedade e a informação são fundamentais na luta contra a aids.</p>",
+    "transcriptHtml": "<p>As páginas desta coletânea trazem vozes autênticas que relatam desafios e conquistas pessoais, oferecendo uma visão humana e inspiradora da vida com HIV.</p>",
+    "sources": [
+      { "label": "Coletivo PVHA", "url": "https://example.com" }
+    ],
+    "pdfUrl": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+  }
+]

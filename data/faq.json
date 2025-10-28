@@ -1,0 +1,24 @@
+[
+  {
+    "id": "prevention-combinada",
+    "question": "O que é prevenção combinada do HIV?",
+    "answerHtml": "<p>A prevenção combinada integra diferentes estratégias para reduzir a transmissão do HIV, incluindo o uso do preservativo, testagens regulares, Profilaxia Pré-Exposição (PrEP), Profilaxia Pós-Exposição (PEP) e o tratamento com antirretrovirais para pessoas vivendo com HIV.</p><p>A escolha das estratégias deve considerar o contexto de vida, o acesso aos serviços e o diálogo contínuo com as equipes de saúde.</p>",
+    "tags": ["prevenção", "PrEP", "PEP"],
+    "durationSeconds": 78,
+    "audioSrc": "/assets/audio/faq1.mp3"
+  },
+  {
+    "id": "tratamento-antirretroviral",
+    "question": "Como funciona o tratamento antirretroviral?",
+    "answerHtml": "<p>O tratamento antirretroviral (TARV) combina medicamentos que impedem a replicação do HIV no organismo. Com adesão diária e acompanhamento clínico, o TARV reduz a carga viral a níveis indetectáveis, preserva a imunidade e evita a transmissão sexual do vírus.</p><p>No Brasil, o tratamento está disponível gratuitamente pelo SUS e deve ser iniciado o quanto antes após o diagnóstico.</p>",
+    "tags": ["tratamento", "TARV", "carga viral indetectável"],
+    "durationSeconds": 92
+  },
+  {
+    "id": "estigma-direitos",
+    "question": "Quais são os direitos das pessoas vivendo com HIV?",
+    "answerHtml": "<p>Pessoas vivendo com HIV têm direito à confidencialidade do diagnóstico, ao acesso gratuito ao tratamento pelo SUS, à proteção contra qualquer forma de discriminação em ambientes de trabalho ou estudo e à garantia de atendimento integral e humanizado.</p><p>Se houver violação de direitos, é possível acionar a Ouvidoria do SUS ou órgãos de defesa de direitos humanos.</p>",
+    "tags": ["direitos", "estigma", "SUS"],
+    "durationSeconds": 70
+  }
+]

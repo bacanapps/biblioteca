@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <!-- PWA manifest and favicon -->
+  <link rel="manifest" href="/manifest.json" />
+  <!-- Use the same icon for now; replace with a custom library icon if desired -->
+  <link rel="icon" href="/assets/img/hero.png" />
+  <!-- Books detail page styles -->
+  <!-- Books detail page styles injected relative to the current document location.
+       This ensures the stylesheet resolves correctly whether the app is served from
+       the repository root or from the `biblioteca/` folder (useful for local testing).
+       The actual rules remain in `assets/css/books-detail.css` so all styles are external. -->
+  <script>
+    (function() {
+      try {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        // Resolve the CSS path relative to the current document location so
+        // `assets/css/books-detail.css` works both when served at /biblioteca/
+        // and when the page is embedded/served from a different base.
+        link.href = new URL('assets/css/books-detail.css', document.location.href).href;
+        link.id = 'books-detail-css';
+        document.head.appendChild(link);
+      } catch (e) {
+        console.error('Failed to inject theme stylesheet:', e);
+      }
+    })();
+  </script>
+  <title>Biblioteca da Aids – Experiência Interativa</title>
+  <meta name="description" content="Navegue pela Biblioteca da Aids com conteúdos em destaque, FAQ interativo, bot de pesquisa e audiodescrição para ampliar o acesso à informação." />
+  <!-- External libraries via CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/howler/dist/howler.min.js"></script>
+  
+</head>
+<body class="bg-gray-900 text-gray-100">
+  <noscript>Você precisa habilitar o JavaScript para usar este aplicativo.</noscript>
+  <div id="root"></div>
+  <script>
+    // Wait for globally loaded libraries to be available before loading the app script.
+    function waitForLibraries() {
+      if (typeof React !== 'undefined' && typeof ReactDOM !== 'undefined') {
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = '/app.js';
+        script.onload = () => console.log('Aplicação carregada com sucesso');
+        script.onerror = (e) => console.error('Falha ao carregar a aplicação:', e);
+        document.head.appendChild(script);
+      } else {
+        setTimeout(waitForLibraries, 100);
+      }
+    }
+    waitForLibraries();
+  </script>
+</body>
+</html>
