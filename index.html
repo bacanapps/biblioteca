@@ -7,8 +7,10 @@
   <link rel="manifest" href="./manifest.json" />
   <!-- Use the same icon for now; replace with a custom library icon if desired -->
   <link rel="icon" href="./assets/img/hero.png" />
-  <link rel="stylesheet" href="./assets/css/theme.css">
-  <link rel="stylesheet" href="./assets/css/app.css">   
+<!-- CSS: use subpath-safe relative paths -->
+  <link rel="stylesheet" href="./assets/css/theme.css" />
+  <link rel="stylesheet" href="./assets/css/app.css" />
+  <link rel="stylesheet" href="./assets/css/books-detail.css" />
   <!-- Books detail page styles -->
   <!-- Books detail page styles injected relative to the current document location.
        This ensures the stylesheet resolves correctly whether the app is served from
@@ -33,9 +35,10 @@
   <title>Biblioteca da Aids – Experiência Interativa</title>
   <meta name="description" content="Navegue pela Biblioteca da Aids com conteúdos em destaque, FAQ interativo, bot de pesquisa e audiodescrição para ampliar o acesso à informação." />
   <!-- External libraries via CDN -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/howler/dist/howler.min.js"></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/howler/dist/howler.min.js"></script>
+<script src="./app.js"></script>
   
 </head>
 <body class="bg-gray-900 text-gray-100">
