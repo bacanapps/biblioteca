@@ -713,11 +713,11 @@
     }
 
     const heroImage =
-      resolveAssetPath(data.heroImage) || resolveAssetPath('/assets/img/hero.png');
+      resolveAssetPath(data.heroImage) || resolveAssetPath('./assets/img/hero.png');
     const audioSrc =
       resolveAssetPath(
         data.audioDescription && (data.audioDescription.src || data.audioDescription.url)
-      ) || resolveAssetPath('/assets/audio/presentation.mp3');
+      ) || resolveAssetPath('./assets/audio/presentation.mp3');
 
     const isActive = audio.playingId === audioId;
     const isPlaying = isActive && audio.isPlaying;

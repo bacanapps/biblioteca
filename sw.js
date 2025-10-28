@@ -1,72 +1,50 @@
-// Service worker for Biblioteca PWA
-const CACHE_NAME = "biblioteca-modern-cache-v1";
-// List of local assets and remote libraries to precache
+// sw.js
+const CACHE_NAME = "biblioteca-cache-v1";
 const PRECACHE_URLS = [
-  "/",
-  "/index.html",
-  "/app.js",
-  "/manifest.json",
-  "/data/presentation.json",
-  "/data/books.json",
-  "/assets/img/hero.png",
-  "/assets/img/book1.png",
-  "/assets/img/book2.png",
-  "/assets/img/book3.png",
-  "/assets/img/book4.png",
-  "/assets/audio/presentation.mp3",
-  // External libraries
-  "https://unpkg.com/react@17/umd/react.development.js",
-  "https://unpkg.com/react-dom@17/umd/react-dom.development.js",
-  "https://unpkg.com/@babel/standalone/babel.min.js",
-  "https://unpkg.com/howler/dist/howler.min.js",
-  "https://cdn.tailwindcss.com"
+  "./",
+  "./index.html",
+  "./app.js",
+  "./manifest.json",
+
+  // Add any same-origin assets you want available offline:
+  "./assets/img/hero.png",
+  "./data/presentation.json",
+  "./data/books.json"
 ];
 
-self.addEventListener('install', event => {
+self.addEventListener("install", (event) => {
+  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS)));
+});
+
+self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(PRECACHE_URLS);
-    })
+    caches.keys().then((keys) =>
+      Promise.all(keys.map((k) => (k === CACHE_NAME ? undefined : caches.delete(k))))
+    )
   );
 });
 
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(
-        keys.map(key => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
-      );
-    })
-  );
-});
+self.addEventListener("fetch", (event) => {
+  const req = event.request;
+  const url = new URL(req.url);
+  const sameOrigin = url.origin === self.location.origin;
 
-self.addEventListener('fetch', event => {
-  const requestUrl = new URL(event.request.url);
-  // Serve precached resources if available
-  if (PRECACHE_URLS.includes(requestUrl.pathname) || PRECACHE_URLS.includes(event.request.url)) {
+  if (sameOrigin) {
+    // cache-first
     event.respondWith(
-      caches.match(event.request).then(response => {
-        return (
-          response ||
-          fetch(event.request).then(networkResponse => {
-            return caches.open(CACHE_NAME).then(cache => {
-              cache.put(event.request, networkResponse.clone());
-              return networkResponse;
-            });
+      caches.match(req).then((cached) => {
+        if (cached) return cached;
+        return fetch(req)
+          .then((res) => {
+            const clone = res.clone();
+            caches.open(CACHE_NAME).then((c) => c.put(req, clone));
+            return res;
           })
-        );
+          .catch(() => caches.match("./index.html"));
       })
     );
   } else {
-    // Network first for other requests; fallback to cache if offline
-    event.respondWith(
-      fetch(event.request).catch(() => {
-        return caches.match(event.request);
-      })
-    );
+    // network-first for cross-origin; don’t precache CDNs
+    event.respondWith(fetch(req).catch(() => caches.match(req)));
   }
 });

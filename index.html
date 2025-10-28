@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <!-- PWA manifest and favicon -->
-  <link rel="manifest" href="/manifest.json" />
+  <link rel="manifest" href="./manifest.json" />
   <!-- Use the same icon for now; replace with a custom library icon if desired -->
-  <link rel="icon" href="/assets/img/hero.png" />
+  <link rel="icon" href="./assets/img/hero.png" />
   <!-- Books detail page styles -->
   <!-- Books detail page styles injected relative to the current document location.
        This ensures the stylesheet resolves correctly whether the app is served from
@@ -55,5 +55,12 @@
     }
     waitForLibraries();
   </script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(console.error);
+    });
+  }
+</script>
 </body>
 </html>
