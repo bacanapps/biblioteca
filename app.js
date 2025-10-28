@@ -743,110 +743,89 @@
     );
   }
 
-  function PresentationPage({ onBack, audio }) {
-    const { data, loading, error } = usePresentationData();
-    const audioId = 'presentation:audiodescription';
+ function PresentationPage({ onBack, audio }) {
+  const { data, loading, error } = usePresentationData();
+  const audioId = 'presentation:audiodescription';
 
-    useEffect(
-      () => () => {
-        audio.stopIfMatches(audioId);
-      },
-      [audio, audioId]
-    );
+  useEffect(() => () => { audio.stopIfMatches(audioId); }, [audio, audioId]);
 
-    if (loading) {
-      return e('div', { className: 'page presentation-page center-state' }, e(LoadingState, null));
-    }
+  if (loading) {
+    return e('div', { className: 'page presentation-page center-state' }, e(LoadingState, null));
+  }
 
-    if (error || !data) {
-      return e(
-        'div',
-        { className: 'page presentation-page center-state' },
-        e(BackButton, { onClick: onBack }),
-        e(
-          'div',
-          { className: 'state-card glass-card' },
-          e('h2', { className: 'state-title' }, 'Não foi possível carregar a apresentação'),
-          e(
-            'p',
-            { className: 'state-message' },
-            'Verifique sua conexão e tente novamente em instantes.'
-          )
-        )
-      );
-    }
-
-    const heroImage =
-      resolveAssetPath(data.heroImage) || resolveAssetPath('./assets/img/hero.png');
-    // BEFORE returning the per-item element, derive a subpath-safe audio URL
-    const audioSrc =
-      toRelative(book.audio || book.audioSrc || './assets/audio/presentation.mp3');
-
-// ...inside the per-item render (e.g., after title/metadata):
-h('button', {
-  type: 'button',
-  className: 'btn btn-green',
-  'data-audio-id': `pub-${idx}`,   // stable id per card
-  'data-audio-src': audioSrc        // actual audio path (relative)
-}, '▶️ Ouvir')
-
-    const isActive = audio.playingId === audioId;
-    const isPlaying = isActive && audio.isPlaying;
-    const buttonText = isActive ? (isPlaying ? 'Pausar audiodescrição' : 'Retomar audiodescrição') : 'Ouvir audiodescrição';
-
+  if (error || !data) {
     return e(
       'div',
-      { className: 'page presentation-page fade-in' },
+      { className: 'page presentation-page center-state' },
+      e(BackButton, { onClick: onBack }),
       e(
-        'header',
-        { className: 'page-header glass-card' },
-        e(BackButton, { onClick: onBack }),
-        e('h1', { className: 'page-title text-gradient' }, 'Apresentação')
-      ),
-      e(
-        'section',
-        { className: 'presentation-hero glass-card' },
-        e('img', {
-          className: 'presentation-hero-image',
-          src: heroImage,
-          alt: data.heroAlt || 'Painel em homenagem à trajetória brasileira em HIV'
-        }),
-        e(
-          'div',
-          { className: 'presentation-body' },
-          e('h2', { className: 'presentation-heading' }, data.title || 'Apresentação'),
-          data.introHtml
-            ? e('div', {
-                className: 'presentation-copy',
-                dangerouslySetInnerHTML: { __html: data.introHtml }
-              })
-            : e('p', { className: 'presentation-copy' }, data.intro || ''),
-          e(
-            'div',
-            { className: 'presentation-actions' },
-            e(
-              'button',
-              {
-                type: 'button',
-                className: `audio-button button-modern ${isActive ? 'audio-button-active' : ''}`,
-                onClick: () => audio.togglePlayback(audioId, audioSrc),
-                'aria-pressed': String(isPlaying),
-                'aria-label': `${buttonText}: ${data.title || 'Apresentação'}`
-              },
-              e('span', { 'aria-hidden': 'true', className: 'audio-button-icon' }, isActive ? (isPlaying ? '⏸️' : '▶️') : '🎧'),
-              e('span', { className: 'audio-button-text' }, buttonText)
-            )
-          )
-        )
-      ),
-      data.disclaimerHtml
-        ? e('section', {
-            className: 'presentation-disclaimer glass-card',
-            dangerouslySetInnerHTML: { __html: data.disclaimerHtml }
-          })
-        : null
+        'div',
+        { className: 'state-card glass-card' },
+        e('h2', { className: 'state-title' }, 'Não foi possível carregar a apresentação'),
+        e('p', { className: 'state-message' }, 'Verifique sua conexão e tente novamente em instantes.')
+      )
     );
   }
+
+  // ✅ Correct hero + audio source for Apresentação
+  const heroImage = resolveAssetPath(data.heroImage) || resolveAssetPath('./assets/img/hero.png');
+  const audioSrc = resolveAssetPath(
+    (data.audioDescription && data.audioDescription.src) ? data.audioDescription.src : './assets/audio/presentation.mp3'
+  );
+
+  const isActive = audio.playingId === audioId;
+  const isPlaying = isActive && audio.isPlaying;
+  const buttonText = isActive
+    ? (isPlaying ? 'Pausar audiodescrição' : 'Retomar audiodescrição')
+    : 'Ouvir audiodescrição';
+
+  return e(
+    'div',
+    { className: 'page presentation-page fade-in' },
+    e(
+      'header',
+      { className: 'page-header glass-card' },
+      e(BackButton, { onClick: onBack }),
+      e('h1', { className: 'page-title text-gradient' }, 'Apresentação')
+    ),
+    e(
+      'section',
+      { className: 'presentation-hero glass-card' },
+      e('img', {
+        className: 'presentation-hero-image',
+        src: heroImage,
+        alt: data.heroAlt || 'Painel em homenagem à trajetória brasileira em HIV'
+      }),
+      e(
+        'div',
+        { className: 'presentation-body' },
+        e('h2', { className: 'presentation-heading' }, data.title || 'Apresentação'),
+        data.introHtml
+          ? e('div', { className: 'presentation-copy', dangerouslySetInnerHTML: { __html: data.introHtml } })
+          : e('p', { className: 'presentation-copy' }, data.intro || ''),
+        e(
+          'div',
+          { className: 'presentation-actions' },
+          e(
+            'button',
+            {
+              type: 'button',
+              className: `audio-button button-modern ${isActive ? 'audio-button-active' : ''}`,
+              onClick: () => audio.togglePlayback(audioId, audioSrc),
+              'aria-pressed': String(isPlaying),
+              'aria-label': `${buttonText}: ${data.title || 'Apresentação'}`
+            },
+            e('span', { 'aria-hidden': 'true', className: 'audio-button-icon' }, isActive ? (isPlaying ? '⏸️' : '▶️') : '🎧'),
+            e('span', { className: 'audio-button-text' }, buttonText)
+          )
+        )
+      )
+    ),
+    data.disclaimerHtml
+      ? e('section', { className: 'presentation-disclaimer glass-card', dangerouslySetInnerHTML: { __html: data.disclaimerHtml } })
+      : null
+  );
+}
 
   function BooksPage({ onBack, audio }) {
     // Provide a stable teardown callback to useBooksData so it doesn't change
