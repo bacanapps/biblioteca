@@ -7,7 +7,7 @@
     "tags": ["diagnostico", "tratamento"],
     "cover": "./assets/img/book1.png",
     "audioDescription": {
-      "src": "./assets/audio/ad1.wav",
+      "src": "./assets/audio/presentation.mp3",
       "durationSec": 2
     },
     "synopsisHtml": "<p>Este documento oficial estabelece as diretrizes terapêuticas para o manejo do HIV no Sistema Único de Saúde (SUS), abrangendo recomendações de tratamento, monitoramento e acompanhamento clínico.</p>",
@@ -26,7 +26,7 @@
     "tags": ["diagnostico"],
     "cover": "./assets/img/book2.png",
     "audioDescription": {
-      "src": "./assets/audio/ad1.wav",
+      "src": "./assets/audio/presentation.mp3",
       "durationSec": 2
     },
     "synopsisHtml": "<p>Manual que apresenta fluxos e critérios para o diagnóstico laboratorial da infecção pelo HIV, incluindo testes rápidos e confirmatórios.</p>",
@@ -45,7 +45,7 @@
     "tags": ["direitos"],
     "cover": "./assets/img/book3.png",
     "audioDescription": {
-      "src": "./assets/audio/ad1.wav",
+      "src": "./assets/audio/presentation.mp3",
       "durationSec": 2
     },
     "synopsisHtml": "<p>Esta recomendação internacional estabelece direitos trabalhistas e orientações de proteção para trabalhadores afetados pelo HIV e aids, promovendo a igualdade e a não discriminação no ambiente de trabalho.</p>",
@@ -64,7 +64,7 @@
     "tags": ["outros"],
     "cover": "./assets/img/book4.png",
     "audioDescription": {
-      "src": "./assets/audio/ad1.wav",
+      "src": "./assets/audio/presentation.mp3",
       "durationSec": 2
     },
     "synopsisHtml": "<p>Coletânea de relatos e crônicas escritas por pessoas vivendo com HIV que retratam experiências de vida, amor e luta contra o estigma.</p>",
