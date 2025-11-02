@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+  <title>Biblioteca da AIDS</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0a0f1a" />
+  <meta name="description" content="Explore publicações sobre prevenção, diagnóstico, tratamento e direitos das pessoas vivendo com HIV." />
+
+  <!-- CORE STYLES (order: tokens → app → detail overrides) -->
+  <link rel="stylesheet" href="assets/css/tokens.css" />
+  <link rel="stylesheet" href="assets/css/app.css" />
+  <link rel="stylesheet" href="assets/css/books-detail.css" />
+
+  <link rel="icon" href="assets/img/hero.png" />
+
+  <style>
+    /* Minimal fallback to prevent FOUC */
+    body {
+      background-color: #0a0f1a;
+      color: #fff;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", Roboto, "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+    }
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- React root -->
+  <div id="root"></div>
+
+  <!-- SERVICE WORKER REGISTRATION -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("sw.js")
+        .then(reg => {
+          console.log("Service Worker registrado com sucesso:", reg.scope);
+        })
+        .catch(err => {
+          console.warn("Falha ao registrar o Service Worker:", err);
+        });
+    }
+  </script>
+
+  <!-- VENDOR SCRIPTS -->
+  <script src="assets/vendor/react.production.min.js"></script>
+  <script src="assets/vendor/react-dom.production.min.js"></script>
+  <script src="assets/vendor/howler.min.js"></script>
+
+  <!-- APP LOGIC -->
+  <script src="app.js"></script>
+</body>
+</html>

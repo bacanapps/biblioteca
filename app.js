@@ -1,0 +1,530 @@
+/* ========== BIBLIOTECA DA AIDS - REACT APP ==========
+ * Theme switching + PWA with books, presentation, audio
+ */
+
+"use strict";
+
+const { useState, useEffect, useRef } = React;
+const e = React.createElement;
+
+/* ========== THEME MANAGER ========== */
+const ThemeManager = {
+  STORAGE_KEY: "biblioteca-theme",
+  THEMES: ["default", "exhibit"],
+
+  init() {
+    const saved = localStorage.getItem(this.STORAGE_KEY);
+    const theme = this.THEMES.includes(saved) ? saved : "default";
+    this.apply(theme);
+    return theme;
+  },
+
+  apply(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+  },
+
+  toggle(currentTheme) {
+    const nextTheme = currentTheme === "default" ? "exhibit" : "default";
+    this.apply(nextTheme);
+    localStorage.setItem(this.STORAGE_KEY, nextTheme);
+    return nextTheme;
+  },
+
+  getThemeName(theme) {
+    return theme === "default" ? "Modo Escuro" : "Modo Exposição";
+  }
+};
+
+/* ========== AUDIO PLAYER ========== */
+class AudioPlayer {
+  constructor() {
+    this.currentSound = null;
+    this.isPlaying = false;
+  }
+
+  play(url, onEnd) {
+    this.stop();
+    if (!window.Howl) {
+      console.warn("Howler.js não carregado");
+      return;
+    }
+    this.currentSound = new Howl({
+      src: [url],
+      html5: true,
+      onend: () => {
+        this.isPlaying = false;
+        if (onEnd) onEnd();
+      },
+      onplay: () => {
+        this.isPlaying = true;
+      },
+      onstop: () => {
+        this.isPlaying = false;
+      }
+    });
+    this.currentSound.play();
+  }
+
+  stop() {
+    if (this.currentSound) {
+      this.currentSound.stop();
+      this.currentSound.unload();
+      this.currentSound = null;
+    }
+    this.isPlaying = false;
+  }
+
+  toggle(url, onEnd) {
+    if (this.isPlaying && this.currentSound) {
+      this.stop();
+    } else {
+      this.play(url, onEnd);
+    }
+  }
+}
+
+const audioPlayer = new AudioPlayer();
+
+/* ========== HOME PAGE ========== */
+function HomePage({ onNavigate, theme, onThemeToggle }) {
+  return e("div", { className: "app-shell" },
+    e("div", { className: "home-wrapper" },
+      // Hero header section
+      e("div", { className: "home-hero" },
+        e("button", {
+          className: "theme-toggle-btn",
+          onClick: onThemeToggle
+        }, `🎨`),
+        
+        e("div", { className: "hero-content" },
+          e("h1", { className: "hero-title" }, "Biblioteca da AIDS"),
+          e("p", { className: "hero-desc" },
+            "Explore publicações sobre prevenção, diagnóstico, tratamento e direitos das pessoas vivendo com HIV e encontre histórias inspiradoras"
+          ),
+          e("div", { className: "hero-dots-row" },
+            e("div", { className: "hero-badge" },
+              e("span", { className: "hero-dot green" }),
+              e("span", {}, "Informações atualizadas")
+            ),
+            e("div", { className: "hero-badge" },
+              e("span", { className: "hero-dot purple" }),
+              e("span", {}, "Audiodescrição inclusa")
+            ),
+            e("div", { className: "hero-badge" },
+              e("span", { className: "hero-dot teal" }),
+              e("span", {}, "Biblioteca interativa")
+            )
+          )
+        )
+      ),
+
+      // Cards section
+      e("div", { className: "home-cards-col" },
+        // Presentation card
+        e("div", { className: "feature-card" },
+          e("div", { className: "feature-icon blue" }, "📖"),
+          e("div", { className: "feature-head" }, "Apresentação"),
+          e("div", { className: "feature-desc" },
+            "Conheça o contexto da biblioteca e sua importância na luta contra a AIDS"
+          ),
+          e("button", {
+            className: "feature-cta-btn blue",
+            onClick: () => onNavigate("presentation")
+          }, "Explorar")
+        ),
+
+        // Books collection card
+        e("div", { className: "feature-card" },
+          e("div", { className: "feature-icon green" }, "📚"),
+          e("div", { className: "feature-head" }, "Publicações"),
+          e("div", { className: "feature-desc" },
+            "Acesse materiais técnicos e literários sobre HIV e aids"
+          ),
+          e("button", {
+            className: "feature-cta-btn green",
+            onClick: () => onNavigate("books")
+          }, "Explorar")
+        )
+      ),
+
+      // Footer disclaimer
+      e("div", { className: "home-footer-disclaimer" },
+        "Informações baseadas em evidências científicas • Ministério da Saúde • OPAS"
+      )
+    )
+  );
+}
+
+/* ========== PRESENTATION PAGE ========== */
+function PresentationPage({ onNavigate, theme, onThemeToggle }) {
+  const [data, setData] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    fetch("data/presentation.json")
+      .then(r => r.json())
+      .then(setData)
+      .catch(err => console.error("Erro ao carregar apresentação:", err));
+  }, []);
+
+  const handleAudioToggle = () => {
+    if (!data?.audioUrl) return;
+    audioPlayer.toggle(data.audioUrl, () => setIsPlaying(false));
+    setIsPlaying(!isPlaying);
+  };
+
+  if (!data) {
+    return e("div", { className: "app-shell" },
+      e("div", { className: "page-body" }, "Carregando...")
+    );
+  }
+
+  return e("div", { className: "app-shell" },
+    // Header bar
+    e("div", { className: "app-header-bar" },
+      e("div", { className: "app-header-left" },
+        e("a", {
+          href: "#",
+          className: "back-link",
+          onClick: (ev) => { ev.preventDefault(); onNavigate("home"); }
+        }, "← Voltar")
+      ),
+      e("div", { className: "app-header-title" }, "Apresentação"),
+      e("button", {
+        className: "theme-toggle-btn",
+        onClick: onThemeToggle,
+        style: { fontSize: ".8rem", padding: ".4rem .6rem" }
+      }, "🎨")
+    ),
+
+    // Content
+    e("div", { className: "page-body" },
+      e("div", { className: "presentation-card" },
+        e("h1", { className: "presentation-title" }, data.title),
+        
+        data.heroImage && e("div", { className: "presentation-heroimg-wrapper" },
+          e("img", { src: data.heroImage, alt: "Biblioteca Hero" })
+        ),
+
+        e("div", { className: "presentation-textblock" }, data.content),
+
+        data.audioUrl && e("div", { className: "audio-row" },
+          e("button", {
+            className: "audio-btn",
+            onClick: handleAudioToggle
+          }, `🎵 ${isPlaying ? "Pausar" : "Audiodescrição"}`)
+        )
+      ),
+
+      data.disclaimer && e("div", { className: "disclaimer-card" },
+        data.disclaimer
+      )
+    ),
+
+    e("div", { className: "app-footer-line" },
+      "© 2025 Biblioteca da AIDS • Informação confiável sobre HIV/AIDS"
+    )
+  );
+}
+
+/* ========== BOOKS LIST PAGE ========== */
+function BooksListPage({ onNavigate, theme, onThemeToggle }) {
+  const [books, setBooks] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTag, setSelectedTag] = useState("");
+
+  useEffect(() => {
+    fetch("data/books.json")
+      .then(r => r.json())
+      .then(data => setBooks(data.books || []))
+      .catch(err => console.error("Erro ao carregar livros:", err));
+  }, []);
+
+  const allTags = [...new Set(books.flatMap(b => b.tags || []))];
+
+  const filteredBooks = books.filter(book => {
+    const matchesSearch = !searchTerm || 
+      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (book.source || "").toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesTag = !selectedTag || (book.tags || []).includes(selectedTag);
+    return matchesSearch && matchesTag;
+  });
+
+  return e("div", { className: "app-shell" },
+    // Header
+    e("div", { className: "app-header-bar" },
+      e("div", { className: "app-header-left" },
+        e("a", {
+          href: "#",
+          className: "back-link",
+          onClick: (ev) => { ev.preventDefault(); onNavigate("home"); }
+        }, "← Voltar")
+      ),
+      e("div", { className: "app-header-title" }, "Acervo"),
+      e("button", {
+        className: "theme-toggle-btn",
+        onClick: onThemeToggle,
+        style: { fontSize: ".8rem", padding: ".4rem .6rem" }
+      }, "🎨")
+    ),
+
+    // Content
+    e("div", { className: "page-body" },
+      // Filters
+      e("div", { className: "filters-row" },
+        e("input", {
+          type: "text",
+          className: "search-input",
+          placeholder: "Buscar por título ou fonte...",
+          value: searchTerm,
+          onChange: (ev) => setSearchTerm(ev.target.value)
+        }),
+        allTags.map(tag =>
+          e("button", {
+            key: tag,
+            className: `tag-chip ${selectedTag === tag ? "active" : ""}`,
+            onClick: () => setSelectedTag(selectedTag === tag ? "" : tag)
+          }, tag)
+        )
+      ),
+
+      // Books grid
+      e("div", { className: "books-grid" },
+        filteredBooks.length === 0
+          ? e("p", { style: { color: "var(--color-text-secondary)" } },
+              "Nenhum resultado encontrado"
+            )
+          : filteredBooks.map(book =>
+              e("div", {
+                key: book.id,
+                className: "book-card",
+                onClick: () => onNavigate("book", book.id)
+              },
+                e("div", { className: "book-thumb" },
+                  book.thumbnail
+                    ? e("img", {
+                        src: book.thumbnail,
+                        alt: book.title,
+                        style: { width: "100%", height: "100%", objectFit: "cover" }
+                      })
+                    : "📄"
+                ),
+                e("div", { className: "book-title" }, book.title),
+                e("div", { className: "book-meta" }, book.source || "Fonte não especificada"),
+                e("div", { className: "badge-row" },
+                  book.pdfUrl && e("span", { className: "badge badge-pdf" }, "📄 PDF"),
+                  book.audioUrl && e("span", { className: "badge badge-audio" }, "🎵 Áudio")
+                )
+              )
+            )
+      )
+    ),
+
+    e("div", { className: "app-footer-line" },
+      `${filteredBooks.length} publicação${filteredBooks.length !== 1 ? "ões" : ""} disponível${filteredBooks.length !== 1 ? "is" : ""}`
+    )
+  );
+}
+
+/* ========== BOOK DETAIL PAGE ========== */
+function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
+  const [book, setBook] = useState(null);
+  const [activeTab, setActiveTab] = useState("sobre");
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    fetch("data/books.json")
+      .then(r => r.json())
+      .then(data => {
+        const found = (data.books || []).find(b => b.id === bookId);
+        setBook(found || null);
+      })
+      .catch(err => console.error("Erro ao carregar livro:", err));
+  }, [bookId]);
+
+  const handleAudioToggle = () => {
+    if (!book?.audioUrl) return;
+    audioPlayer.toggle(book.audioUrl, () => setIsPlaying(false));
+    setIsPlaying(!isPlaying);
+  };
+
+  if (!book) {
+    return e("div", { className: "app-shell" },
+      e("div", { className: "page-body" }, "Carregando...")
+    );
+  }
+
+  return e("div", { className: "app-shell" },
+    // Header
+    e("div", { className: "app-header-bar" },
+      e("div", { className: "app-header-left" },
+        e("a", {
+          href: "#",
+          className: "back-link",
+          onClick: (ev) => { ev.preventDefault(); onNavigate("books"); }
+        }, "← Voltar")
+      ),
+      e("div", { className: "app-header-title" }, book.title),
+      e("button", {
+        className: "theme-toggle-btn",
+        onClick: onThemeToggle,
+        style: { fontSize: ".8rem", padding: ".4rem .6rem" }
+      }, "🎨")
+    ),
+
+    // Content
+    e("div", { className: "page-body" },
+      e("div", { className: "bookdetail-card" },
+        e("div", { className: "bookdetail-thumb" },
+          book.thumbnail
+            ? e("img", {
+                src: book.thumbnail,
+                alt: book.title
+              })
+            : e("div", { className: "bookdetail-thumb-placeholder" })
+        ),
+
+        e("h1", { className: "bookdetail-title" }, book.title),
+        
+        e("div", { className: "bookdetail-source" },
+          e("span", {}, book.source || "Fonte não especificada"),
+          book.year && e("span", {}, ` – ${book.year}`)
+        ),
+
+        e("div", { className: "bookdetail-cta-row" },
+          book.pdfUrl && e("a", {
+            href: book.pdfUrl,
+            target: "_blank",
+            rel: "noopener noreferrer",
+            className: "btn-open-pdf"
+          }, "📄 Abrir PDF"),
+          
+          book.audioUrl && e("button", {
+            className: "btn-audio",
+            onClick: handleAudioToggle
+          }, `🎵 ${isPlaying ? "Pausar" : "Audiodescrição"}`)
+        ),
+
+        // Tabs
+        e("div", { className: "tab-bar" },
+          e("button", {
+            className: `tab-chip ${activeTab === "sobre" ? "active" : ""}`,
+            onClick: () => setActiveTab("sobre")
+          }, "Sobre"),
+          e("button", {
+            className: `tab-chip ${activeTab === "analise" ? "active" : ""}`,
+            onClick: () => setActiveTab("analise")
+          }, "Análise"),
+          e("button", {
+            className: `tab-chip ${activeTab === "transcricao" ? "active" : ""}`,
+            onClick: () => setActiveTab("transcricao")
+          }, "Transcrição"),
+          e("button", {
+            className: `tab-chip ${activeTab === "fontes" ? "active" : ""}`,
+            onClick: () => setActiveTab("fontes")
+          }, "Fontes")
+        ),
+
+        // Tab content
+        activeTab === "sobre" && e("div", {},
+          e("h3", { className: "bookdetail-section-title" }, "Sobre"),
+          e("div", { className: "bookdetail-textblock" },
+            book.description || "Descrição não disponível."
+          ),
+          book.summary && e("div", {},
+            e("div", { className: "bookdetail-textblock", style: { marginTop: "1rem" } },
+              book.summary
+            )
+          )
+        ),
+
+        activeTab === "analise" && e("div", {},
+          e("h3", { className: "bookdetail-section-title" }, "Análise"),
+          e("div", { className: "bookdetail-textblock" },
+            book.analise || "Análise não disponível."
+          )
+        ),
+
+        activeTab === "transcricao" && e("div", {},
+          e("h3", { className: "bookdetail-section-title" }, "Transcrição"),
+          e("div", { className: "bookdetail-textblock" },
+            book.transcricao || "Transcrição não disponível."
+          )
+        ),
+
+        activeTab === "fontes" && e("div", {},
+          e("h3", { className: "bookdetail-section-title" }, "Fontes"),
+          e("div", { className: "bookdetail-textblock" },
+            book.fontes || "Fontes não disponíveis."
+          )
+        )
+      )
+    ),
+
+    e("div", { className: "app-footer-line" },
+      "© 2025 Biblioteca da AIDS"
+    )
+  );
+}
+
+/* ========== MAIN APP ========== */
+function App() {
+  const [route, setRoute] = useState({ page: "home", params: null });
+  const [theme, setTheme] = useState(() => ThemeManager.init());
+
+  const navigate = (page, params = null) => {
+    setRoute({ page, params });
+    audioPlayer.stop();
+    window.scrollTo(0, 0);
+  };
+
+  const handleThemeToggle = () => {
+    setTheme(current => ThemeManager.toggle(current));
+  };
+
+  // Render current page
+  let pageComponent;
+  
+  if (route.page === "home") {
+    pageComponent = e(HomePage, {
+      onNavigate: navigate,
+      theme,
+      onThemeToggle: handleThemeToggle
+    });
+  } else if (route.page === "presentation") {
+    pageComponent = e(PresentationPage, {
+      onNavigate: navigate,
+      theme,
+      onThemeToggle: handleThemeToggle
+    });
+  } else if (route.page === "books") {
+    pageComponent = e(BooksListPage, {
+      onNavigate: navigate,
+      theme,
+      onThemeToggle: handleThemeToggle
+    });
+  } else if (route.page === "book") {
+    pageComponent = e(BookDetailPage, {
+      bookId: route.params,
+      onNavigate: navigate,
+      theme,
+      onThemeToggle: handleThemeToggle
+    });
+  } else {
+    pageComponent = e(HomePage, {
+      onNavigate: navigate,
+      theme,
+      onThemeToggle: handleThemeToggle
+    });
+  }
+
+  return pageComponent;
+}
+
+/* ========== INITIALIZE APP ========== */
+document.addEventListener("DOMContentLoaded", () => {
+  const root = document.getElementById("root");
+  if (root) {
+    ReactDOM.render(e(App), root);
+  }
+});

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Theme Preview - Biblioteca da AIDS</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f5f5f5;
+      padding: 2rem 1rem;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #1a1a1a;
+    }
+    
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .theme-preview {
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    
+    .theme-header {
+      padding: 1rem;
+      font-weight: 600;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    
+    .theme-preview.dark .theme-header {
+      background: #0a0f1a;
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .theme-preview.light .theme-header {
+      background: #fdf6e9;
+      color: #1a1a1a;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .theme-body {
+      padding: 2rem;
+      min-height: 400px;
+    }
+    
+    .theme-preview.dark .theme-body {
+      background: radial-gradient(
+        circle at 20% 20%,
+        rgba(15, 23, 42, 0) 0%,
+        rgba(0, 0, 0, 0.6) 60%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(16, 185, 129, 0.18) 0%,
+        rgba(0, 0, 0, 0) 60%
+      ),
+      #0a0f1a;
+    }
+    
+    .theme-preview.light .theme-body {
+      background: radial-gradient(
+        circle at 20% 20%,
+        rgba(251, 191, 36, 0.08) 0%,
+        rgba(0, 0, 0, 0) 60%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(185, 28, 28, 0.12) 0%,
+        rgba(0, 0, 0, 0) 60%
+      ),
+      #fdf6e9;
+    }
+    
+    .sample-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 1rem;
+    }
+    
+    .theme-preview.dark .sample-card {
+      background: #1e2535;
+      border-color: rgba(255,255,255,0.07);
+      color: #fff;
+    }
+    
+    .theme-preview.light .sample-card {
+      background: #fffdf6;
+      border-color: rgba(0,0,0,0.08);
+      color: #1a1a1a;
+    }
+    
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .theme-preview.dark .card-title {
+      color: #8fa2ff;
+    }
+    
+    .theme-preview.light .card-title {
+      color: #b91c1c;
+    }
+    
+    .card-text {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      opacity: 0.8;
+    }
+    
+    .sample-button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 500;
+      background: linear-gradient(to right, #4f46e5, #3b5bfd);
+      color: #fff;
+      border: none;
+      margin-top: 1rem;
+      cursor: pointer;
+    }
+    
+    .colors-row {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .color-swatch {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    .legend {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .legend h2 {
+      margin-bottom: 1rem;
+      color: #1a1a1a;
+    }
+    
+    .legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .color-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin: 0.25rem;
+    }
+    
+    .badge.green { background: #10b981; color: white; }
+    .badge.purple { background: #6366f1; color: white; }
+    .badge.blue { background: #3b82f6; color: white; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Theme Switching Preview - Biblioteca da AIDS</h1>
+    
+    <div class="preview-grid">
+      <!-- Dark Theme -->
+      <div class="theme-preview dark">
+        <div class="theme-header">
+          🌙 Modo Escuro (Default)
+        </div>
+        <div class="theme-body">
+          <div class="sample-card">
+            <div class="card-title">Biblioteca da AIDS</div>
+            <div class="card-text">
+              Explore publicações sobre prevenção, diagnóstico, tratamento 
+              e direitos das pessoas vivendo com HIV.
+            </div>
+            <button class="sample-button">Explorar Acervo</button>
+          </div>
+          
+          <div class="sample-card">
+            <div class="card-title">Guia de Prevenção</div>
+            <div class="card-text">
+              Informações essenciais sobre as principais formas de prevenção ao HIV.
+            </div>
+            <div class="colors-row">
+              <span class="badge green">📄 PDF</span>
+              <span class="badge purple">🎵 Áudio</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Light Theme -->
+      <div class="theme-preview light">
+        <div class="theme-header">
+          ☀️ Modo Exposição (Exhibit)
+        </div>
+        <div class="theme-body">
+          <div class="sample-card">
+            <div class="card-title">Biblioteca da AIDS</div>
+            <div class="card-text">
+              Explore publicações sobre prevenção, diagnóstico, tratamento 
+              e direitos das pessoas vivendo com HIV.
+            </div>
+            <button class="sample-button">Explorar Acervo</button>
+          </div>
+          
+          <div class="sample-card">
+            <div class="card-title">Guia de Prevenção</div>
+            <div class="card-text">
+              Informações essenciais sobre as principais formas de prevenção ao HIV.
+            </div>
+            <div class="colors-row">
+              <span class="badge green">📄 PDF</span>
+              <span class="badge purple">🎵 Áudio</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Color Legend -->
+    <div class="legend">
+      <h2>📊 Paleta de Cores</h2>
+      
+      <h3 style="margin: 1.5rem 0 0.75rem; font-size: 1rem;">🌙 Modo Escuro</h3>
+      <div class="legend-grid">
+        <div class="legend-item">
+          <div class="color-dot" style="background: #0a0f1a;"></div>
+          <span>Fundo: #0a0f1a</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-dot" style="background: #1e2535;"></div>
+          <span>Cards: #1e2535</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-dot" style="background: #ffffff;"></div>
+          <span>Texto: #ffffff</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-dot" style="background: #8fa2ff;"></div>
+          <span>Títulos: #8fa2ff</span>
+        </div>
+      </div>
+      
+      <h3 style="margin: 1.5rem 0 0.75rem; font-size: 1rem;">☀️ Modo Exposição</h3>
+      <div class="legend-grid">
+        <div class="legend-item">
+          <div class="color-dot" style="background: #fdf6e9;"></div>
+          <span>Fundo: #fdf6e9</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-dot" style="background: #fffdf6;"></div>
+          <span>Cards: #fffdf6</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-dot" style="background: #1a1a1a;"></div>
+          <span>Texto: #1a1a1a</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-dot" style="background: #b91c1c;"></div>
+          <span>Títulos: #b91c1c</span>
+        </div>
+      </div>
+      
+      <h3 style="margin: 1.5rem 0 0.75rem; font-size: 1rem;">✨ Cores de Acento (Ambos)</h3>
+      <div class="legend-grid">
+        <div class="legend-item">
+          <div class="color-dot" style="background: #10b981;"></div>
+          <span>Verde: #10b981</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-dot" style="background: #6366f1;"></div>
+          <span>Roxo: #6366f1</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-dot" style="background: #3b82f6;"></div>
+          <span>Azul: #3b82f6</span>
+        </div>
+        <div class="legend-item">
+          <div class="color-dot" style="background: #4f46e5;"></div>
+          <span>Índigo: #4f46e5</span>
+        </div>
+      </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: white; border-radius: 8px;">
+      <h2 style="margin-bottom: 1rem;">🚀 Como Usar</h2>
+      <p style="color: #666; max-width: 600px; margin: 0 auto 1rem;">
+        No aplicativo real, clique no botão 🎨 para alternar entre os temas. 
+        A escolha é salva automaticamente e persiste entre sessões.
+      </p>
+      <p style="color: #999; font-size: 0.9rem;">
+        Veja <strong>QUICKSTART.md</strong> para instruções de instalação.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

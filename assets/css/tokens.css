@@ -1,0 +1,110 @@
+/* ========== DESIGN TOKENS - BIBLIOTECA DA AIDS ========== */
+
+/* Default (Dark) Theme */
+:root,
+:root[data-theme="default"] {
+  /* Background colors */
+  --color-bg-page: #0a0f1a;
+  --color-surface-card: #1e2535;
+  --color-surface-overlay: rgba(0, 0, 0, 0.4);
+
+  /* Text colors */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #94a3b8;
+  --color-heading-home: #8fa2ff;
+
+  /* Brand colors */
+  --color-brand-accent: #4f46e5;
+  --color-brand-green: #10b981;
+  --color-brand-purple: #6366f1;
+  --color-brand-blue: #3b82f6;
+
+  /* Border colors */
+  --color-border-card: rgba(255, 255, 255, 0.07);
+  --color-border-strong: rgba(255, 255, 255, 0.12);
+
+  /* Radius */
+  --radius-card: 0.75rem;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-card: 0 60px 120px rgba(0, 0, 0, 0.8);
+  --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.9);
+  --shadow-glow: 0 0 120px rgba(59, 130, 246, 0.3);
+
+  /* Fonts */
+  --font-heading: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+
+  color-scheme: dark;
+}
+
+/* Exhibit (Light/Warm) Theme */
+:root[data-theme="exhibit"] {
+  /* Background colors */
+  --color-bg-page: #fdf6e9;
+  --color-surface-card: #fffdf6;
+  --color-surface-overlay: rgba(0, 0, 0, 0.05);
+
+  /* Text colors */
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #44403c;
+  --color-heading-home: #b91c1c;
+
+  /* Brand colors (keeping same for consistency) */
+  --color-brand-accent: #4f46e5;
+  --color-brand-green: #10b981;
+  --color-brand-purple: #6366f1;
+  --color-brand-blue: #3b82f6;
+
+  /* Border colors */
+  --color-border-card: rgba(0, 0, 0, 0.08);
+  --color-border-strong: rgba(0, 0, 0, 0.15);
+
+  /* Radius */
+  --radius-card: 0.75rem;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-card: 0 24px 40px rgba(0, 0, 0, 0.18);
+  --shadow-soft: 0 15px 40px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 80px rgba(185, 28, 28, 0.2);
+
+  /* Fonts */
+  --font-heading: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+
+  color-scheme: light;
+}
+
+/* Base reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-page);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* Utility classes */
+.hidden {
+  display: none !important;
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--color-brand-accent);
+  color: white;
+}
