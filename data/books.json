@@ -28,7 +28,7 @@
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["PEP", "Prevenção", "Profilaxia"],
-      "thumbnail": null,
+      "thumbnail": "assets/img/3_pcdt_pep_interativo.png",
       "pdfUrl": "#",
       "audioUrl": null,
       "description": "Protocolo para profilaxia pós-exposição de risco à infecção pelo HIV, infecções sexualmente transmissíveis e hepatites virais."
@@ -39,7 +39,7 @@
       "source": "Ministério da Saúde",
       "year": "2025",
       "tags": ["PrEP", "Prevenção", "Profilaxia"],
-      "thumbnail": null,
+      "thumbnail": "assets/img/4_pcdt_prep_hiv_2025.png",
       "pdfUrl": "#",
       "audioUrl": null,
       "description": "Protocolo atualizado para a Profilaxia Pré-Exposição oral à infecção pelo HIV, com as diretrizes mais recentes para implementação no SUS."
@@ -50,7 +50,7 @@
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["Tratamento", "Crianças", "Adolescentes"],
-      "thumbnail": null,
+      "thumbnail": "assets/img/5.1_pcdt_hiv_crianca_modulo_1_2024_e.png",
       "pdfUrl": "#",
       "audioUrl": null,
       "description": "Protocolo específico para o manejo clínico de crianças e adolescentes vivendo com HIV, incluindo esquemas terapêuticos e monitoramento."
@@ -61,7 +61,7 @@
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["Diagnóstico", "Testagem"],
-      "thumbnail": null,
+      "thumbnail": "assets/img/6_manual_tecnico_hiv_27_11_2018_web.png",
       "pdfUrl": "#",
       "audioUrl": null,
       "description": "Manual técnico detalhando os procedimentos e metodologias para diagnóstico da infecção pelo HIV em todas as faixas etárias."
@@ -72,7 +72,7 @@
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["PrEP", "PEP"],
-      "thumbnail": null,
+      "thumbnail": "assets/img/7_guia_teleprep.png",
       "pdfUrl": "#",
       "audioUrl": null,
       "description": "Guia para implementação de teleatendimento na oferta de PrEP e PEP, ampliando o acesso às profilaxias anti-HIV."
@@ -83,7 +83,7 @@
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["PrEP", "Atenção Primária"],
-      "thumbnail": null,
+      "thumbnail": "assets/img/8_guia_prep_na_aps.png",
       "pdfUrl": "#",
       "audioUrl": null,
       "description": "Orientações práticas para implementação da PrEP na Atenção Primária à Saúde, descentralizando o acesso à prevenção."
@@ -94,7 +94,7 @@
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["População Trans", "PrEP", "PEP", "Prevenção"],
-      "thumbnail": null,
+      "thumbnail": "assets/img/9_guia_pop_trans.png",
       "pdfUrl": "#",
       "audioUrl": null,
       "description": "Guia específico para oferta de prevenção combinada ao HIV voltado para pessoas trans, travestis e não binárias."
@@ -105,7 +105,7 @@
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["Serviços"],
-      "thumbnail": null,
+      "thumbnail": "assets/img/10_guia_qualiaids.png",
       "pdfUrl": "#",
       "audioUrl": null,
       "description": "Relatório de avaliação da qualidade dos serviços ambulatoriais especializados em HIV/AIDS no Sistema Único de Saúde."
@@ -116,7 +116,7 @@
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["Testagem", "Diagnóstico", "Prevenção"],
-      "thumbnail": null,
+      "thumbnail": "assets/img/11_guia_testagem_focalizada_hiv.png",
       "pdfUrl": "#",
       "audioUrl": null,
       "description": "Guia rápido com estratégias de testagem focalizada para populações prioritárias e aumento da detecção de casos de HIV."
@@ -127,7 +127,7 @@
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["Autoteste", "Testagem", "Diagnóstico"],
-      "thumbnail": null,
+      "thumbnail": "assets/img/12_diretrizes-para-a-distribuicao-do-autoteste-de-hiv-no-brasil.png",
       "pdfUrl": "#",
       "audioUrl": null,
       "description": "Diretrizes nacionais para implementação e distribuição do autoteste de HIV, ampliando o acesso ao diagnóstico."
@@ -138,7 +138,7 @@
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["Transmissão Vertical", "Gestantes", "Prevenção"],
-      "thumbnail": null,
+      "thumbnail": "assets/img/13_guia_transmissao_vertical_hiv.png",
       "pdfUrl": "#",
       "audioUrl": null,
       "description": "Guia com critérios e processos para certificação da eliminação da transmissão vertical de HIV e outras infecções."
@@ -149,7 +149,7 @@
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": [],
-      "thumbnail": null,
+      "thumbnail": "assets/img/14_manual_cuidado_contínuo_hiv_e_aids.png",
       "pdfUrl": "#",
       "audioUrl": null,
       "description": "Manual sobre o cuidado contínuo e integral de pessoas vivendo com HIV, abordando aspectos clínicos e psicossociais."
@@ -160,7 +160,7 @@
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["Legislação", "Direitos", "Jurídico"],
-      "thumbnail": null,
+      "thumbnail": "assets/img/15_legislacao_e_o_hiv.png",
       "pdfUrl": "#",
       "audioUrl": null,
       "description": "Compilação da legislação brasileira relacionada aos direitos das pessoas vivendo com HIV e políticas públicas de AIDS."
@@ -171,7 +171,7 @@
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["Monitoramento", "Indicadores", "Gestão"],
-      "thumbnail": null,
+      "thumbnail": "assets/img/16_monit_integrado_hiv.png",
       "pdfUrl": "#",
       "audioUrl": null,
       "description": "Sumário executivo sobre o monitoramento integrado do cuidado do HIV no Brasil, com indicadores e metas."
@@ -182,7 +182,7 @@
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["2030"],
-      "thumbnail": null,
+      "thumbnail": "assets/img/17_diretrizes_eliminacao_aids_e_hiv_ate_2030.png",
       "pdfUrl": "#",
       "audioUrl": null,
       "description": "Diretrizes estratégicas para eliminação da AIDS como problema de saúde pública no Brasil até 2030, alinhadas às metas globais."
@@ -193,7 +193,7 @@
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["Gestantes", "Monitoramento", "Transmissão Vertical"],
-      "thumbnail": null,
+      "thumbnail": "assets/img/18_relatorio_gestantes_com_hiv_e-ou_aids.png",
       "pdfUrl": "#",
       "audioUrl": null,
       "description": "Relatório de monitoramento clínico das gestantes vivendo com HIV, com dados sobre prevenção da transmissão vertical."
