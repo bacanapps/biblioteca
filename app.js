@@ -330,7 +330,6 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
 /* ========== BOOK DETAIL PAGE ========== */
 function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
   const [book, setBook] = useState(null);
-  const [activeTab, setActiveTab] = useState("sobre");
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
@@ -399,64 +398,17 @@ function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
             rel: "noopener noreferrer",
             className: "btn-open-pdf"
           }, "📄 Abrir PDF"),
-          
+
           book.audioUrl && e("button", {
             className: "btn-audio",
             onClick: handleAudioToggle
           }, `🎵 ${isPlaying ? "Pausar" : "Audiodescrição"}`)
         ),
 
-        // Tabs
-        e("div", { className: "tab-bar" },
-          e("button", {
-            className: `tab-chip ${activeTab === "sobre" ? "active" : ""}`,
-            onClick: () => setActiveTab("sobre")
-          }, "Sobre"),
-          e("button", {
-            className: `tab-chip ${activeTab === "analise" ? "active" : ""}`,
-            onClick: () => setActiveTab("analise")
-          }, "Análise"),
-          e("button", {
-            className: `tab-chip ${activeTab === "transcricao" ? "active" : ""}`,
-            onClick: () => setActiveTab("transcricao")
-          }, "Transcrição"),
-          e("button", {
-            className: `tab-chip ${activeTab === "fontes" ? "active" : ""}`,
-            onClick: () => setActiveTab("fontes")
-          }, "Fontes")
-        ),
-
-        // Tab content
-        activeTab === "sobre" && e("div", {},
-          e("h3", { className: "bookdetail-section-title" }, "Sobre"),
+        // Description
+        e("div", { style: { marginTop: "2rem" } },
           e("div", { className: "bookdetail-textblock" },
             book.description || "Descrição não disponível."
-          ),
-          book.summary && e("div", {},
-            e("div", { className: "bookdetail-textblock", style: { marginTop: "1rem" } },
-              book.summary
-            )
-          )
-        ),
-
-        activeTab === "analise" && e("div", {},
-          e("h3", { className: "bookdetail-section-title" }, "Análise"),
-          e("div", { className: "bookdetail-textblock" },
-            book.analise || "Análise não disponível."
-          )
-        ),
-
-        activeTab === "transcricao" && e("div", {},
-          e("h3", { className: "bookdetail-section-title" }, "Transcrição"),
-          e("div", { className: "bookdetail-textblock" },
-            book.transcricao || "Transcrição não disponível."
-          )
-        ),
-
-        activeTab === "fontes" && e("div", {},
-          e("h3", { className: "bookdetail-section-title" }, "Fontes"),
-          e("div", { className: "bookdetail-textblock" },
-            book.fontes || "Fontes não disponíveis."
           )
         )
       )
