@@ -13,12 +13,23 @@
     },
     {
       "id": "pcdt-hiv-adultos",
-      "title": "PCDT para manejo da infecção pelo HIV em adultos - módulos I e II",
+      "title": "PCDT para manejo da infecção pelo HIV em adultos - módulo I",
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["Tratamento", "Protocolo", "Adultos"],
       "thumbnail": "assets/img/2.1_pcdt_hiv_modulo_1_2024.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/pcdts/pcdt_hiv_modulo_1_2024.pdf",
+      "audioUrl": null,
+      "description": "Protocolo Clínico e Diretrizes Terapêuticas para o manejo da infecção pelo HIV em adultos, estabelecendo as diretrizes terapêuticas no SUS."
+    },
+        {
+      "id": "pcdt-hiv-adultos",
+      "title": "PCDT para manejo da infecção pelo HIV em adultos - módulo II",
+      "source": "Ministério da Saúde",
+      "year": "2024",
+      "tags": ["Tratamento", "Protocolo", "Adultos"],
+      "thumbnail": "assets/img/2.2_pcdt_hiv_modulo_2_2024_eletrnicoisbn.png",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/pcdts/PCDT_HIV_Modulo_2_2024_eletrnicoISBN.pdf",
       "audioUrl": null,
       "description": "Protocolo Clínico e Diretrizes Terapêuticas para o manejo da infecção pelo HIV em adultos, estabelecendo as diretrizes terapêuticas no SUS."
     },
@@ -29,7 +40,7 @@
       "year": "2024",
       "tags": ["PEP", "Prevenção", "Profilaxia"],
       "thumbnail": "assets/img/3_pcdt_pep_interativo.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/pcdts/copy3_of_PCDT_PEP_interativo.pdf",
       "audioUrl": null,
       "description": "Protocolo para profilaxia pós-exposição de risco à infecção pelo HIV, infecções sexualmente transmissíveis e hepatites virais."
     },
@@ -40,18 +51,29 @@
       "year": "2025",
       "tags": ["PrEP", "Prevenção", "Profilaxia"],
       "thumbnail": "assets/img/4_pcdt_prep_hiv_2025.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/pcdts/ProtocoloClnicoeDiretrizesTeraputicasparaProfilaxiaPrExposioPrEPOralInfecopeloHIV.pdf",
       "audioUrl": null,
       "description": "Protocolo atualizado para a Profilaxia Pré-Exposição oral à infecção pelo HIV, com as diretrizes mais recentes para implementação no SUS."
     },
     {
       "id": "pcdt-hiv-criancas",
-      "title": "PCDT para manejo da infecção pelo HIV em crianças e adolescentes - módulos I e II",
+      "title": "PCDT para manejo da infecção pelo HIV em crianças e adolescentes - módulo I",
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["Tratamento", "Crianças", "Adolescentes"],
       "thumbnail": "assets/img/5.1_pcdt_hiv_crianca_modulo_1_2024_e.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/pcdts/PCDT_HIV_Criana_Modulo_1_2024_e.pdf",
+      "audioUrl": null,
+      "description": "Protocolo específico para o manejo clínico de crianças e adolescentes vivendo com HIV, incluindo esquemas terapêuticos e monitoramento."
+    },
+        {
+      "id": "pcdt-hiv-criancas",
+      "title": "PCDT para manejo da infecção pelo HIV em crianças e adolescentes - módulo II",
+      "source": "Ministério da Saúde",
+      "year": "2024",
+      "tags": ["Tratamento", "Crianças", "Adolescentes"],
+      "thumbnail": "assets/img/5.1_pcdt_hiv_crianca_modulo_1_2024_e.png",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/pcdts/PCDT_HIV_Crianas_Modulo_II_2024_e.pdf",
       "audioUrl": null,
       "description": "Protocolo específico para o manejo clínico de crianças e adolescentes vivendo com HIV, incluindo esquemas terapêuticos e monitoramento."
     },
@@ -62,7 +84,7 @@
       "year": "2024",
       "tags": ["Diagnóstico", "Testagem"],
       "thumbnail": "assets/img/6_manual_tecnico_hiv_27_11_2018_web.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2018/manual_tecnico_hiv_27_11_2018_web.pdf",
       "audioUrl": null,
       "description": "Manual técnico detalhando os procedimentos e metodologias para diagnóstico da infecção pelo HIV em todas as faixas etárias."
     },
@@ -73,7 +95,7 @@
       "year": "2024",
       "tags": ["PrEP", "PEP"],
       "thumbnail": "assets/img/7_guia_teleprep.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2024/guiateleprep.pdf/view",
       "audioUrl": null,
       "description": "Guia para implementação de teleatendimento na oferta de PrEP e PEP, ampliando o acesso às profilaxias anti-HIV."
     },
@@ -84,7 +106,7 @@
       "year": "2024",
       "tags": ["PrEP", "Atenção Primária"],
       "thumbnail": "assets/img/8_guia_prep_na_aps.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2024/guia-prep-na-aps.pdf/view",
       "audioUrl": null,
       "description": "Orientações práticas para implementação da PrEP na Atenção Primária à Saúde, descentralizando o acesso à prevenção."
     },
@@ -95,7 +117,7 @@
       "year": "2024",
       "tags": ["População Trans", "PrEP", "PEP", "Prevenção"],
       "thumbnail": "assets/img/9_guia_pop_trans.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2024/guia-pop-trans.pdf/view",
       "audioUrl": null,
       "description": "Guia específico para oferta de prevenção combinada ao HIV voltado para pessoas trans, travestis e não binárias."
     },
@@ -106,7 +128,7 @@
       "year": "2024",
       "tags": ["Serviços"],
       "thumbnail": "assets/img/10_guia_qualiaids.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2024/guia-rapido-qualiaids.pdf/view",
       "audioUrl": null,
       "description": "Relatório de avaliação da qualidade dos serviços ambulatoriais especializados em HIV/AIDS no Sistema Único de Saúde."
     },
@@ -117,7 +139,7 @@
       "year": "2024",
       "tags": ["Testagem", "Diagnóstico", "Prevenção"],
       "thumbnail": "assets/img/11_guia_testagem_focalizada_hiv.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2024/guia-rapido-de-testagem-focalizada-para-o-hiv/view",
       "audioUrl": null,
       "description": "Guia rápido com estratégias de testagem focalizada para populações prioritárias e aumento da detecção de casos de HIV."
     },
@@ -128,7 +150,7 @@
       "year": "2024",
       "tags": ["Autoteste", "Testagem", "Diagnóstico"],
       "thumbnail": "assets/img/12_diretrizes-para-a-distribuicao-do-autoteste-de-hiv-no-brasil.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/svsa/aids/diretrizes-para-a-distribuicao-do-autoteste-de-hiv-no-brasil_compressed-1.pdf",
       "audioUrl": null,
       "description": "Diretrizes nacionais para implementação e distribuição do autoteste de HIV, ampliando o acesso ao diagnóstico."
     },
