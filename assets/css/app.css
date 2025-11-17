@@ -842,7 +842,8 @@ p.page-subtle {
 }
 
 .badge-pdf {
-  background-color: var(--color-brand-green);
+    display: none;
+    background-color: var(--color-brand-green);
 }
 
 .badge-audio {
