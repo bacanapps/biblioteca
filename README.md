@@ -105,9 +105,13 @@ const ThemeManager = {
       tokens.css       # Design tokens e variáveis de tema
       app.css         # Estilos principais e layout
       books-detail.css # Estilos da página de detalhes
-      theme.css       # Placeholder para extensões futuras
+      styles.css      # Estilos adicionais
     /img
       hero.png        # Logo/ícone principal
+      1.2_historias_da_aids.png
+      2.1_pcdt_hiv_modulo_1_2024.png
+      3_pcdt_pep_interativo.png
+      ...             # 18 capas de livros no total
     /vendor
       react.production.min.js
       react-dom.production.min.js
@@ -152,6 +156,23 @@ THEMES: ["light", "dark", "novo-tema"]
 3. Atualize o método `toggle()` para suportar múltiplos temas
 4. Atualize o método `getThemeName()` se necessário
 
+## 📚 Acervo da Biblioteca
+
+A Biblioteca da AIDS conta com **18 publicações oficiais** do Ministério da Saúde, incluindo:
+
+- Protocolos Clínicos e Diretrizes Terapêuticas (PCDT) para HIV/AIDS
+- Guias de Profilaxia Pré-Exposição (PrEP) e Pós-Exposição (PEP)
+- Manuais de diagnóstico e testagem
+- Diretrizes para populações específicas (crianças, gestantes, população trans)
+- Documentos estratégicos e de monitoramento
+- Legislação e direitos das pessoas vivendo com HIV
+
+Todas as publicações incluem:
+- Capas ilustrativas (thumbnails)
+- Descrições detalhadas
+- Tags para busca e filtragem
+- Metadados completos (ano, fonte, categoria)
+
 ## 🎯 Recursos
 
 - ✅ PWA com suporte offline
@@ -161,6 +182,7 @@ THEMES: ["light", "dark", "novo-tema"]
 - ✅ Busca e filtros
 - ✅ Responsive design
 - ✅ Design tokens CSS
+- ✅ 18 publicações com capas ilustrativas
 
 ## 📱 PWA Features
 
