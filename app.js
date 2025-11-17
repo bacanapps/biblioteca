@@ -10,11 +10,19 @@ const e = React.createElement;
 /* ========== THEME MANAGER ========== */
 const ThemeManager = {
   STORAGE_KEY: "biblioteca-theme",
-  THEMES: ["default", "exhibit"],
+  THEMES: ["light", "dark"],
 
   init() {
+    // Check URL parameter first
+    const urlParams = new URLSearchParams(window.location.search);
+    const themeParam = urlParams.get('theme');
+    if (this.THEMES.includes(themeParam)) {
+      this.apply(themeParam);
+      return themeParam;
+    }
+    // Then check localStorage
     const saved = localStorage.getItem(this.STORAGE_KEY);
-    const theme = this.THEMES.includes(saved) ? saved : "default";
+    const theme = this.THEMES.includes(saved) ? saved : "light"; // Default to light
     this.apply(theme);
     return theme;
   },
@@ -24,14 +32,18 @@ const ThemeManager = {
   },
 
   toggle(currentTheme) {
-    const nextTheme = currentTheme === "default" ? "exhibit" : "default";
+    const nextTheme = currentTheme === "light" ? "dark" : "light";
     this.apply(nextTheme);
     localStorage.setItem(this.STORAGE_KEY, nextTheme);
+    // Update URL parameter
+    const url = new URL(window.location);
+    url.searchParams.set('theme', nextTheme);
+    window.history.pushState({}, '', url);
     return nextTheme;
   },
 
   getThemeName(theme) {
-    return theme === "default" ? "Modo Escuro" : "Modo Exposição";
+    return theme === "light" ? "Modo Claro" : "Modo Escuro";
   }
 };
 
@@ -87,69 +99,58 @@ const audioPlayer = new AudioPlayer();
 
 /* ========== HOME PAGE ========== */
 function HomePage({ onNavigate, theme, onThemeToggle }) {
-  return e("div", { className: "app-shell" },
-    e("div", { className: "home-wrapper" },
-      // Hero header section
-      e("div", { className: "home-hero" },
-        e("button", {
-          className: "theme-toggle-btn",
-          onClick: onThemeToggle
-        }, `🎨`),
-        
+  return e("div", { className: "page fade-in" },
+    // Theme toggle button (fixed position)
+    e("button", {
+      className: "theme-toggle-btn",
+      onClick: onThemeToggle,
+      "aria-label": "Alternar tema"
+    }, theme === "light" ? "🌙" : "☀️"),
+
+    // Hero section with gradient glass card
+    e("section", { className: "hero hero-gradient glass-card" },
+      e("div", { className: "hero-header" },
         e("div", { className: "hero-content" },
           e("h1", { className: "hero-title" }, "Biblioteca da AIDS"),
-          e("p", { className: "hero-desc" },
-            "Explore publicações sobre prevenção, diagnóstico, tratamento e direitos das pessoas vivendo com HIV e encontre histórias inspiradoras"
-          ),
-          e("div", { className: "hero-dots-row" },
-            e("div", { className: "hero-badge" },
-              e("span", { className: "hero-dot green" }),
-              e("span", {}, "Informações atualizadas")
-            ),
-            e("div", { className: "hero-badge" },
-              e("span", { className: "hero-dot purple" }),
-              e("span", {}, "Audiodescrição inclusa")
-            ),
-            e("div", { className: "hero-badge" },
-              e("span", { className: "hero-dot teal" }),
-              e("span", {}, "Biblioteca interativa")
-            )
+          e("p", { className: "hero-lede" },
+            "Acesse materiais educativos sobre HIV/AIDS em formato acessível"
           )
         )
-      ),
+      )
+    ),
 
-      // Cards section
-      e("div", { className: "home-cards-col" },
-        // Presentation card
-        e("div", { className: "feature-card" },
-          e("div", { className: "feature-icon blue" }, "📖"),
-          e("div", { className: "feature-head" }, "Apresentação"),
-          e("div", { className: "feature-desc" },
+    // Two-column cards section
+    e("section", { className: "home-cards" },
+      e("div", { className: "cards-2col" },
+        // Card 1: Apresentação
+        e("article", {
+          className: "choice-card glass-card card-hover",
+          onClick: () => onNavigate("presentation")
+        },
+          e("div", { className: "choice-icon" }, "📘"),
+          e("h2", { className: "choice-title" }, "Apresentação"),
+          e("p", { className: "choice-desc" },
             "Conheça o contexto da biblioteca e sua importância na luta contra a AIDS"
           ),
-          e("button", {
-            className: "feature-cta-btn blue",
-            onClick: () => onNavigate("presentation")
-          }, "Explorar")
+          e("div", { className: "actions" },
+            e("button", { className: "btn btn-primary" }, "Explorar")
+          )
         ),
 
-        // Books collection card
-        e("div", { className: "feature-card" },
-          e("div", { className: "feature-icon green" }, "📚"),
-          e("div", { className: "feature-head" }, "Publicações"),
-          e("div", { className: "feature-desc" },
+        // Card 2: Publicações
+        e("article", {
+          className: "choice-card glass-card card-hover",
+          onClick: () => onNavigate("books")
+        },
+          e("div", { className: "choice-icon" }, "📚"),
+          e("h2", { className: "choice-title" }, "Publicações"),
+          e("p", { className: "choice-desc" },
             "Acesse materiais técnicos e literários sobre HIV e aids"
           ),
-          e("button", {
-            className: "feature-cta-btn green",
-            onClick: () => onNavigate("books")
-          }, "Explorar")
+          e("div", { className: "actions" },
+            e("button", { className: "btn btn-green" }, "Explorar") 
+          )
         )
-      ),
-
-      // Footer disclaimer
-      e("div", { className: "home-footer-disclaimer" },
-        "Informações baseadas em evidências científicas • Ministério da Saúde • OPAS"
       )
     )
   );
@@ -194,7 +195,7 @@ function PresentationPage({ onNavigate, theme, onThemeToggle }) {
         className: "theme-toggle-btn",
         onClick: onThemeToggle,
         style: { fontSize: ".8rem", padding: ".4rem .6rem" }
-      }, "🎨")
+      }, "☀️")
     ),
 
     // Content
@@ -260,12 +261,12 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
           onClick: (ev) => { ev.preventDefault(); onNavigate("home"); }
         }, "← Voltar")
       ),
-      e("div", { className: "app-header-title" }, "Acervo"),
+      e("div", { className: "app-header-title" }, "Biblioteca da AIDS"),
       e("button", {
         className: "theme-toggle-btn",
         onClick: onThemeToggle,
         style: { fontSize: ".8rem", padding: ".4rem .6rem" }
-      }, "🎨")
+      }, "🌙")
     ),
 
     // Content
@@ -369,7 +370,7 @@ function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
         className: "theme-toggle-btn",
         onClick: onThemeToggle,
         style: { fontSize: ".8rem", padding: ".4rem .6rem" }
-      }, "🎨")
+      }, "🌙")
     ),
 
     // Content

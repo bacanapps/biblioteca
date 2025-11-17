@@ -1,81 +1,43 @@
 /* ---- GLOBAL RESET / BASE ---- */
 :root {
-  --color-bg-page: #0b0f17;
-  --color-surface-card: #111827;
-  --color-text-primary: #f9fafb;
-  --color-text-secondary: rgba(226,232,240,0.7);
-  --color-card-border: rgba(148,163,184,.4);
-
+  --color-bg-page: #dddddd;
+  --color-surface-card: #ffffff;
+  --color-surface-contrast: #6b0400;
+  --color-surface-overlay: rgba(107, 4, 0, 0.85);
+  --color-text-primary: #171717;
+  --color-text-secondary: #4c4c4c;
+  --color-text-on-contrast: #ffffff;
+  --color-brand-accent: #ff0000;
+  --color-border-card: #c7c7c7;
+  --color-border-strong: #6b0400;
   --radius-card: 0.75rem;
   --radius-pill: 999px;
-
-  --shadow-card: 0 40px 120px -20px rgba(37,99,235,.45);
-  --shadow-card-soft: 0 30px 80px -10px rgba(0,0,0,.7);
-
-  --btn-blue-from: #3b5bff;
-  --btn-blue-to: #4f46e5;
-  --btn-green-bg: #14a36d;
-  --btn-purple-bg: #6d28d9;
-
-  --panel-bg: radial-gradient(circle at 20% 20%, rgba(15,23,42,.6) 0%, rgba(0,0,0,0) 70%), radial-gradient(circle at 80% 20%, rgba(20,83,45,.4) 0%, rgba(0,0,0,0) 70%);
-  --panel-border: rgba(148,163,184,.4);
-  --panel-radius: 0.75rem;
-  --panel-bg-solid: #111827;
-  --panel-text-primary: #fff;
-  --panel-text-secondary: rgba(226,232,240,.7);
-
-  --header-gradient-from: rgba(15,23,42,1);
-  --header-gradient-to: rgba(0,0,0,0);
-
-  --footer-text: rgba(226,232,240,.8);
-  --divider-color: rgba(148,163,184,.2);
-
-  --theme-toggle-bg: transparent;
-  --theme-toggle-text: #fff;
-  --theme-toggle-border: rgba(255,255,255,.4);
-
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color-scheme: dark;
+  --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.15);
+  --shadow-flat: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --font-heading: "Archivo Black", "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color-scheme: light;
 }
 
 /* Light / exposição theme */
-:root[data-theme="exhibit"] {
-  --color-bg-page: #fdf6e9;
-  --color-surface-card: #fffdf6;
-  --color-text-primary: #1a1a1a;
-  --color-text-secondary: #44403c;
-  --color-card-border: rgba(0,0,0,.1);
-
-  --radius-card: 0.75rem;
+:root[data-theme="dark"] {
+  --color-bg-page: #080d1a;
+  --color-surface-card: #111827;
+  --color-surface-contrast: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  --color-surface-overlay: rgba(8, 13, 26, 0.75);
+  --color-text-primary: #f3f4f6;
+  --color-text-secondary: rgba(226, 232, 240, 0.7);
+  --color-text-on-contrast: #ffffff;
+  --color-brand-accent: #5b9dff;
+  --color-border-card: rgba(94, 129, 172, 0.4);
+  --color-border-strong: rgba(91, 157, 255, 0.65);
+  --radius-card: 1.5rem;
   --radius-pill: 999px;
-
-  --shadow-card: 0 24px 40px rgba(0,0,0,0.18);
-  --shadow-card-soft: 0 20px 50px rgba(0,0,0,0.15);
-
-  /* We keep the same CTA colors for now to stay consistent with the other PWAs. */
-  --btn-blue-from: #3b5bff;
-  --btn-blue-to: #4f46e5;
-  --btn-green-bg: #14a36d;
-  --btn-purple-bg: #6d28d9;
-
-  --panel-bg: none;
-  --panel-border: rgba(0,0,0,.1);
-  --panel-radius: 0.75rem;
-  --panel-bg-solid: #fffdf6;
-  --panel-text-primary: #1a1a1a;
-  --panel-text-secondary: #44403c;
-
-  --header-gradient-from: #fff4dd;
-  --header-gradient-to: rgba(255,255,255,0);
-
-  --footer-text: #1a1a1a;
-  --divider-color: rgba(0,0,0,.15);
-
-  --theme-toggle-bg: transparent;
-  --theme-toggle-text: #1a1a1a;
-  --theme-toggle-border: rgba(0,0,0,.4);
-
-  color-scheme: light;
+  --shadow-card: 0 22px 48px -18px rgba(37, 99, 235, 0.55);
+  --shadow-flat: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --font-heading: "Archivo Black", "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color-scheme: dark;
 }
 
 /* Page base */

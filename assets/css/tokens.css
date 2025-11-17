@@ -1,80 +1,147 @@
 /* ========== DESIGN TOKENS - BIBLIOTECA DA AIDS ========== */
 
-/* Default (Dark) Theme */
-:root,
-:root[data-theme="default"] {
+/* Import Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* New Color Scheme - "A História Cantada da AIDS" */
+:root {
   /* Background colors */
-  --color-bg-page: #0a0f1a;
-  --color-surface-card: #1e2535;
-  --color-surface-overlay: rgba(0, 0, 0, 0.4);
+  --color-bg-page: #bcbcbc;
+  --color-surface-card: #f4f4f4;
+  --color-surface-contrast: #f4f4f4;
+  --color-surface-overlay: rgba(0, 0, 0, 0.05);
+  --color-text-on-contrast: #5d5d5d;
 
   /* Text colors */
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #94a3b8;
-  --color-heading-home: #8fa2ff;
+  --color-text-primary: #5d5d5d;
+  --color-text-secondary: #6b0300;
+  --color-heading-home: #ff0000;
 
   /* Brand colors */
-  --color-brand-accent: #4f46e5;
+  --color-brand-accent: #ff0000;
   --color-brand-green: #10b981;
-  --color-brand-purple: #6366f1;
-  --color-brand-blue: #3b82f6;
-
-  /* Border colors */
-  --color-border-card: rgba(255, 255, 255, 0.07);
-  --color-border-strong: rgba(255, 255, 255, 0.12);
-
-  /* Radius */
-  --radius-card: 0.75rem;
-  --radius-pill: 999px;
-
-  /* Shadows */
-  --shadow-card: 0 60px 120px rgba(0, 0, 0, 0.8);
-  --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.9);
-  --shadow-glow: 0 0 120px rgba(59, 130, 246, 0.3);
-
-  /* Fonts */
-  --font-heading: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-  --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-
-  color-scheme: dark;
-}
-
-/* Exhibit (Light/Warm) Theme */
-:root[data-theme="exhibit"] {
-  /* Background colors */
-  --color-bg-page: #fdf6e9;
-  --color-surface-card: #fffdf6;
-  --color-surface-overlay: rgba(0, 0, 0, 0.05);
-
-  /* Text colors */
-  --color-text-primary: #1a1a1a;
-  --color-text-secondary: #44403c;
-  --color-heading-home: #b91c1c;
-
-  /* Brand colors (keeping same for consistency) */
-  --color-brand-accent: #4f46e5;
-  --color-brand-green: #10b981;
-  --color-brand-purple: #6366f1;
+  --color-brand-purple: #8b5cf6;
   --color-brand-blue: #3b82f6;
 
   /* Border colors */
   --color-border-card: rgba(0, 0, 0, 0.08);
-  --color-border-strong: rgba(0, 0, 0, 0.15);
+  --color-border-strong: rgba(255, 0, 0, 0.3);
 
   /* Radius */
-  --radius-card: 0.75rem;
+  --radius-card: 1rem;
   --radius-pill: 999px;
 
   /* Shadows */
-  --shadow-card: 0 24px 40px rgba(0, 0, 0, 0.18);
-  --shadow-soft: 0 15px 40px rgba(0, 0, 0, 0.12);
-  --shadow-glow: 0 0 80px rgba(185, 28, 28, 0.2);
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-soft: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-glow: 0 0 40px rgba(255, 0, 0, 0.15);
+  --shadow-flat: 0 0 0 1px rgba(0, 0, 0, 0.08);
+
+  /* Historia-cantada style variables */
+  --panel: #f4f4f4;
+  --panel-strong: #f4f4f4;
+  --border: rgba(0, 0, 0, 0.08);
+  --glow: 0 10px 30px rgba(0,0,0,0.1);
+  --muted: #5d5d5d;
+  --text: #5d5d5d;
+  --primary: #ff0000;
+  --primary-2: #ff0000;
 
   /* Fonts */
-  --font-heading: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-  --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  --font-heading: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 
   color-scheme: light;
+}
+
+/* Dark theme overrides */
+:root[data-theme="dark"] {
+  --color-bg-page: #0f172a;
+  --color-surface-card: rgba(30,41,59,0.6);
+  --color-surface-contrast: rgba(30,41,59,0.8);
+  --color-surface-overlay: rgba(0, 0, 0, 0.3);
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #94a3b8;
+  --color-text-on-contrast: #e2e8f0;
+  --color-brand-accent: #ff0000;
+  --color-border-card: rgba(148,163,184,0.2);
+  --color-border-strong: rgba(255, 0, 0, 0.3);
+  --radius-card: 1rem;
+  --radius-pill: 999px;
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-flat: 0 0 0 1px rgba(148,163,184,0.2);
+  --shadow-soft: 0 10px 30px rgba(0,0,0,0.5);
+  --panel: rgba(30,41,59,0.6);
+  --panel-strong: rgba(30,41,59,0.8);
+  --border: rgba(148,163,184,0.2);
+  --glow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --bg: #0f172a;
+  --font-heading: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color-scheme: dark;
+}
+
+:root[data-theme="dark"] .choice-desc {
+  color: #ffffff !important;
+}
+:root[data-theme="dark"] .choice-title {
+  color: #ffffff !important;
+}
+:root[data-theme="dark"] .hero-title {
+  color: #ffffff !important;
+}
+:root[data-theme="dark"] .hero-lede {
+  color: #ffffff !important;
+}
+
+/* Light theme overrides */
+:root[data-theme="light"] {
+  --color-bg-page: #bcbcbc;
+  --color-surface-card: rgba(255, 255, 255, 0.95);
+  --color-surface-contrast: rgba(255, 255, 255, 1);
+  --color-surface-overlay: rgba(0, 0, 0, 0.05);
+  --color-text-primary: #5d5d5d;
+  --color-text-secondary: #6b0300;
+  --color-text-on-contrast: #5d5d5d;
+  --color-brand-accent: #ff0000;
+  --color-border-card: rgba(0, 0, 0, 0.08);
+  --color-border-strong: rgba(255, 0, 0, 0.3);
+  --radius-card: 1rem;
+  --radius-pill: 999px;
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-flat: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --shadow-soft: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --panel: rgba(255, 255, 255, 0.95);
+  --panel-strong: rgba(255, 255, 255, 1);
+  --border: rgba(0, 0, 0, 0.08);
+  --glow: 0 10px 30px rgba(0,0,0,0.1);
+  --text: #5d5d5d;
+  --muted: #6b7280;
+  --bg: #bcbcbc;
+  --font-heading: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color-scheme: light;
+}
+
+/* Heading accent - unified color scheme */
+.hero-title {
+  color: #ff0000;
+  text-align: center;
+}
+
+/* Dots - unified color scheme */
+.dot-green  { background-color: #10b981; }
+.dot-blue   { background-color: #ff0000; }
+.dot-purple { background-color: #8b5cf6; }
+
+html[data-theme] {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 /* Base reset */

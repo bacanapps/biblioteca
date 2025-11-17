@@ -27,7 +27,7 @@
   position: relative;
 }
 
-:root[data-theme="exhibit"] .bookdetail-thumb {
+:root[data-theme="dark"] .bookdetail-thumb {
   background-color: #f9fafb;
 }
 
@@ -141,7 +141,7 @@
   transition: all 0.2s;
 }
 
-:root[data-theme="exhibit"] .tab-chip {
+:root[data-theme="dark"] .tab-chip {
   background-color: rgba(0, 0, 0, 0.05);
   border-color: rgba(0, 0, 0, 0.1);
 }
@@ -150,7 +150,7 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-:root[data-theme="exhibit"] .tab-chip:hover:not(.active) {
+:root[data-theme="dark"] .tab-chip:hover:not(.active) {
   background-color: rgba(0, 0, 0, 0.08);
 }
 

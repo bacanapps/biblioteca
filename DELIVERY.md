@@ -70,7 +70,7 @@
 }
 
 /* Tema Exposição (Claro) */
-:root[data-theme="exhibit"] {
+:root[data-theme="dark"] {
   --color-bg-page: #fdf6e9;
   --color-text-primary: #1a1a1a;
   --color-heading-home: #b91c1c;

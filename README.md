@@ -6,17 +6,17 @@ Uma Progressive Web App (PWA) para explorar publicações sobre HIV/AIDS com fun
 
 ### Temas Disponíveis
 
-1. **Modo Escuro (default)**
-   - Fundo: Azul escuro profundo (#0a0f1a)
-   - Texto: Branco e tons de cinza
-   - Acento: Azul índigo (#8fa2ff)
-   - Ideal para leitura noturna
+1. **Modo Claro (light)** - Tema padrão
+   - Fundo: Cinza claro (#bcbcbc)
+   - Texto: Cinza escuro (#5d5d5d)
+   - Acento: Vermelho (#ff0000)
+   - Ideal para leitura diurna
 
-2. **Modo Exposição (exhibit)**
-   - Fundo: Bege quente (#fdf6e9)
-   - Texto: Preto e tons marrons
-   - Acento: Vermelho (#b91c1c)
-   - Estilo de exposição de museu
+2. **Modo Escuro (dark)**
+   - Fundo: Azul escuro profundo (#0f172a)
+   - Texto: Branco e tons de cinza claros
+   - Acento: Branco (#ffffff)
+   - Ideal para leitura noturna
 
 ### Como Funciona
 
@@ -24,6 +24,7 @@ O sistema de temas usa:
 - **CSS Variables** definidas em `tokens.css`
 - **data-theme attribute** no elemento `<html>`
 - **localStorage** para persistência da preferência do usuário
+- **URL parameters** para compartilhar tema específico (ex: `?theme=dark`)
 - **ThemeManager** em `app.js` para controle centralizado
 
 ### Implementação Técnica
@@ -32,24 +33,35 @@ O sistema de temas usa:
 // Em app.js
 const ThemeManager = {
   STORAGE_KEY: "biblioteca-theme",
-  THEMES: ["default", "exhibit"],
-  
+  THEMES: ["light", "dark"],
+
   init() {
-    // Carrega tema salvo ou usa 'default'
+    // Verifica parâmetro URL primeiro
+    const urlParams = new URLSearchParams(window.location.search);
+    const themeParam = urlParams.get('theme');
+    if (this.THEMES.includes(themeParam)) {
+      this.apply(themeParam);
+      return themeParam;
+    }
+    // Depois verifica localStorage
     const saved = localStorage.getItem(this.STORAGE_KEY);
-    const theme = this.THEMES.includes(saved) ? saved : "default";
+    const theme = this.THEMES.includes(saved) ? saved : "light"; // Padrão claro
     this.apply(theme);
     return theme;
   },
-  
+
   apply(theme) {
     document.documentElement.setAttribute("data-theme", theme);
   },
-  
+
   toggle(currentTheme) {
-    const nextTheme = currentTheme === "default" ? "exhibit" : "default";
+    const nextTheme = currentTheme === "light" ? "dark" : "light";
     this.apply(nextTheme);
     localStorage.setItem(this.STORAGE_KEY, nextTheme);
+    // Atualiza parâmetro URL
+    const url = new URL(window.location);
+    url.searchParams.set('theme', nextTheme);
+    window.history.pushState({}, '', url);
     return nextTheme;
   }
 };
@@ -60,15 +72,17 @@ const ThemeManager = {
 ```css
 /* tokens.css */
 :root,
-:root[data-theme="default"] {
-  --color-bg-page: #0a0f1a;
-  --color-text-primary: #ffffff;
+:root[data-theme="light"] {
+  --color-bg-page: #bcbcbc;
+  --color-text-primary: #5d5d5d;
+  --color-brand-accent: #ff0000;
   /* ... mais variáveis */
 }
 
-:root[data-theme="exhibit"] {
-  --color-bg-page: #fdf6e9;
-  --color-text-primary: #1a1a1a;
+:root[data-theme="dark"] {
+  --color-bg-page: #0f172a;
+  --color-text-primary: #e2e8f0;
+  --color-brand-accent: #ffffff;
   /* ... mais variáveis */
 }
 ```
@@ -115,9 +129,10 @@ npx serve
 
 ### Alternância de Tema
 
-- Clique no botão 🎨 em qualquer página
-- O tema alterna entre Escuro e Exposição
-- A preferência é salva automaticamente
+- Clique no botão 🌙/☀️ em qualquer página
+- O tema alterna entre Claro e Escuro
+- A preferência é salva automaticamente em localStorage
+- O tema também pode ser definido via URL: `?theme=light` ou `?theme=dark`
 
 ### Adicionar Novo Tema
 
@@ -131,10 +146,11 @@ npx serve
 
 2. Em `app.js`, adicione ao array THEMES:
 ```javascript
-THEMES: ["default", "exhibit", "novo-tema"]
+THEMES: ["light", "dark", "novo-tema"]
 ```
 
-3. Atualize o método `getThemeName()` se necessário
+3. Atualize o método `toggle()` para suportar múltiplos temas
+4. Atualize o método `getThemeName()` se necessário
 
 ## 🎯 Recursos
 
