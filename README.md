@@ -131,6 +131,25 @@ npx serve
 
 2. Acesse `http://localhost:8000`
 
+### Navegação
+
+**Página Inicial**
+- Apresentação da biblioteca
+- Acesso ao acervo completo
+
+**Acervo**
+- Lista de todas as 20 publicações
+- Busca por título
+- Filtros por tags (Tratamento, PrEP, PEP, etc.)
+- Contador de publicações disponíveis
+
+**Página de Detalhes**
+- Informações da publicação (título, fonte, ano)
+- Botão de acesso direto ao PDF oficial
+- Botão de audiodescrição (quando disponível)
+- Descrição completa da publicação
+- Interface simplificada sem abas para melhor experiência
+
 ### Alternância de Tema
 
 - Clique no botão 🌙/☀️ em qualquer página
@@ -188,6 +207,7 @@ Todas as publicações incluem:
 - ✅ Responsive design
 - ✅ Design tokens CSS
 - ✅ 20 publicações com capas ilustrativas e links para PDFs oficiais
+- ✅ Interface simplificada nas páginas de detalhes (sem abas)
 
 ## 📱 PWA Features
 
