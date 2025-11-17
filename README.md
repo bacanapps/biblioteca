@@ -111,7 +111,7 @@ const ThemeManager = {
       1.2_historias_da_aids.png
       2.1_pcdt_hiv_modulo_1_2024.png
       3_pcdt_pep_interativo.png
-      ...             # 18 capas de livros no total
+      ...             # 20 capas de livros no total
     /vendor
       react.production.min.js
       react-dom.production.min.js
@@ -158,9 +158,13 @@ THEMES: ["light", "dark", "novo-tema"]
 
 ## 📚 Acervo da Biblioteca
 
-A Biblioteca da AIDS conta com **18 publicações oficiais** do Ministério da Saúde, incluindo:
+A Biblioteca da AIDS conta com **20 publicações oficiais** do Ministério da Saúde, incluindo:
 
 - Protocolos Clínicos e Diretrizes Terapêuticas (PCDT) para HIV/AIDS
+  - PCDT para adultos (módulos I e II)
+  - PCDT para crianças e adolescentes (módulos I e II)
+  - PCDT para PEP (Profilaxia Pós-Exposição)
+  - PCDT para PrEP (Profilaxia Pré-Exposição)
 - Guias de Profilaxia Pré-Exposição (PrEP) e Pós-Exposição (PEP)
 - Manuais de diagnóstico e testagem
 - Diretrizes para populações específicas (crianças, gestantes, população trans)
@@ -168,6 +172,7 @@ A Biblioteca da AIDS conta com **18 publicações oficiais** do Ministério da S
 - Legislação e direitos das pessoas vivendo com HIV
 
 Todas as publicações incluem:
+- **Links diretos para PDFs oficiais** do gov.br
 - Capas ilustrativas (thumbnails)
 - Descrições detalhadas
 - Tags para busca e filtragem
@@ -182,7 +187,7 @@ Todas as publicações incluem:
 - ✅ Busca e filtros
 - ✅ Responsive design
 - ✅ Design tokens CSS
-- ✅ 18 publicações com capas ilustrativas
+- ✅ 20 publicações com capas ilustrativas e links para PDFs oficiais
 
 ## 📱 PWA Features
 
