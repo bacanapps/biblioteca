@@ -112,6 +112,8 @@ const ThemeManager = {
       2.1_pcdt_hiv_modulo_1_2024.png
       3_pcdt_pep_interativo.png
       ...             # 20 capas de livros no total
+    /audio
+      presentation.mp3  # Audiodescrição da apresentação
     /vendor
       react.production.min.js
       react-dom.production.min.js
@@ -134,7 +136,7 @@ npx serve
 ### Navegação
 
 **Página Inicial**
-- Apresentação da biblioteca
+- Apresentação da biblioteca com audiodescrição
 - Acesso ao acervo completo
 
 **Acervo**
