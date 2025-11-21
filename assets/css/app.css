@@ -471,7 +471,7 @@ p.page-subtle {
 /* Removed - using unified color scheme */
 
 .presentation-heroimg-wrapper {
-  background-color: #f3f4f6;
+  background-color: #ff0000;
   border-radius: 0.75rem;
   border: 1px solid var(--color-border-card);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -481,17 +481,18 @@ p.page-subtle {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 2rem;
 }
 
 :root[data-theme="dark"] .presentation-heroimg-wrapper {
-  background-color: #1e293b;
+  background-color: #ff0000;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 .presentation-heroimg-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 600px;
+  max-height: 100%;
+  object-fit: contain;
   display: block;
 }
 
@@ -598,22 +599,23 @@ p.page-subtle {
 }
 
 .presentation-heroimg-wrapper {
-  background-color: var(--color-surface-overlay);
-  border-radius: 0.5rem;
+  background-color: #ff0000;
+  border-radius: 0.75rem;
   border: 1px solid var(--color-border-card);
   box-shadow: var(--shadow-soft);
   overflow: hidden;
   aspect-ratio: 16/6;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 2rem;
 }
 
 .presentation-heroimg-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 600px;
+  max-height: 100%;
+  object-fit: contain;
   display: block;
 }
 
