@@ -436,13 +436,41 @@ function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
 
 /* ========== MAIN APP ========== */
 function App() {
-  const [route, setRoute] = useState({ page: "home", params: null });
+  const [route, setRoute] = useState(() => {
+    // Initialize route based on hash
+    const hash = window.location.hash.replace('#', '').toLowerCase();
+    if (hash === 'apresentacao' || hash === 'apresentação') {
+      return { page: "presentation", params: null };
+    }
+    return { page: "home", params: null };
+  });
   const [theme, setTheme] = useState(() => ThemeManager.init());
+
+  // Listen to hash changes
+  useEffect(() => {
+    function handleHashChange() {
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      if (hash === 'apresentacao' || hash === 'apresentação') {
+        setRoute({ page: "presentation", params: null });
+      } else if (hash === '' || hash === 'home') {
+        setRoute({ page: "home", params: null });
+      }
+    }
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   const navigate = (page, params = null) => {
     setRoute({ page, params });
     audioPlayer.stop();
     window.scrollTo(0, 0);
+    // Update hash based on page
+    if (page === 'presentation') {
+      window.location.hash = 'apresentacao';
+    } else if (page === 'home') {
+      window.location.hash = '';
+    }
   };
 
   const handleThemeToggle = () => {
