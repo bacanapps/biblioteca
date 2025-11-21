@@ -473,7 +473,7 @@ p.page-subtle {
 .presentation-heroimg-wrapper {
   background-color: #E31E24;
   border-radius: 0.75rem;
-  border: 1px solid var(--color-border-card);
+  border: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   aspect-ratio: 16/6;
@@ -601,7 +601,7 @@ p.page-subtle {
 .presentation-heroimg-wrapper {
   background-color: #E31E24;
   border-radius: 0.75rem;
-  border: 1px solid var(--color-border-card);
+  border: none;
   box-shadow: var(--shadow-soft);
   overflow: hidden;
   aspect-ratio: 16/6;
