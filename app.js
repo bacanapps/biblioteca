@@ -196,7 +196,7 @@ function PresentationPage({ onNavigate, theme, onThemeToggle }) {
         className: "theme-toggle-btn",
         onClick: onThemeToggle,
         "aria-label": "Alternar tema"
-      }, "☀️")
+      }, theme === "light" ? "🌙" : "☀️")
     ),
 
     // Content
@@ -271,7 +271,7 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
         className: "theme-toggle-btn",
         onClick: onThemeToggle,
         style: { fontSize: ".8rem", padding: ".4rem .6rem" }
-      }, "🌙")
+      }, theme === "light" ? "🌙" : "☀️")
     ),
 
     // Content
@@ -381,7 +381,7 @@ function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
         className: "theme-toggle-btn",
         onClick: onThemeToggle,
         style: { fontSize: ".8rem", padding: ".4rem .6rem" }
-      }, "🌙")
+      }, theme === "light" ? "🌙" : "☀️")
     ),
 
     // Content
