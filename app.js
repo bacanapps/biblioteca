@@ -217,10 +217,6 @@ function PresentationPage({ onNavigate, theme, onThemeToggle }) {
       )
     ),
 
-    data.disclaimer && e("div", { className: "disclaimer-card" },
-      data.disclaimer
-    ),
-
     e("div", { className: "app-footer-line" },
       "© 2025 Biblioteca da AIDS • Informação confiável sobre HIV/AIDS"
     )
