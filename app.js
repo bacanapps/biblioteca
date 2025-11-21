@@ -218,7 +218,7 @@ function PresentationPage({ onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      "© 2025 Biblioteca da AIDS • Informação confiável sobre HIV/AIDS"
+      "© 2025 Dezembro Vermelho • Ministério da Saúde"
     )
   );
 }
@@ -425,7 +425,7 @@ function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      "© 2025 Biblioteca da AIDS"
+      "© 2025 Dezembro Vermelho • Ministério da Saúde"
     )
   );
 }
