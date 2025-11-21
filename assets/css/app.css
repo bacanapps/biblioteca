@@ -439,12 +439,12 @@ p.page-subtle {
 /* ====== PRESENTATION PAGE ====== */
 .presentation-card {
   background-color: var(--color-surface-card);
-  border-radius: 1rem;
+  border-radius: 16px;
   border: 1px solid var(--color-border-card);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
   padding: 2rem;
   margin: 0 auto 2rem;
-  max-width: 900px;
+  max-width: 1120px;
 }
 
 :root[data-theme="dark"] .presentation-card {
@@ -509,28 +509,26 @@ p.page-subtle {
 
 .audio-row {
   margin-top: 1.5rem;
+  text-align: left;
 }
 
 .audio-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  color: #fff;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 0.75rem 1.25rem;
-  line-height: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
   border-radius: 0.5rem;
-  border: 0;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
 }
 
 .audio-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+  background: #2563eb;
 }
 
 .disclaimer-card {
@@ -582,12 +580,12 @@ p.page-subtle {
 /* ====== PRESENTATION PAGE ====== */
 .presentation-card {
   background-color: var(--color-surface-card);
-  border-radius: var(--radius-card);
+  border-radius: 16px;
   border: 1px solid var(--color-border-card);
   box-shadow: var(--shadow-card);
   padding: 2rem;
   margin: 0 auto 2rem;
-  max-width: 900px;
+  max-width: 1120px;
 }
 
 .presentation-title {
@@ -627,29 +625,7 @@ p.page-subtle {
   white-space: pre-line;
 }
 
-.audio-row {
-  margin-top: 1rem;
-}
-
-.audio-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: linear-gradient(to right, #4f46e5, #3b5bfd);
-  color: #fff;
-  font-size: 0.85rem;
-  font-weight: 500;
-  padding: 0.6rem 0.9rem;
-  line-height: 1rem;
-  border-radius: 0.5rem;
-  border: 0;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.audio-btn:hover {
-  transform: translateY(-1px);
-}
+/* Duplicate audio styles removed - using unified styles above */
 
 .disclaimer-card {
   background-color: var(--color-surface-overlay);
@@ -673,17 +649,43 @@ p.page-subtle {
   align-items: center;
 }
 
-.search-input {
+.search-input-wrapper {
+  position: relative;
   width: 100%;
   max-width: 1170px;
+}
+
+.search-input {
+  width: 100%;
   background-color: rgba(255,255,255,.04);
   border: 1px solid var(--color-border-card);
   border-radius: 0.4rem;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
   color: var(--text);
   font-size: 0.9rem;
   line-height: 1.2rem;
   transition: border-color 0.2s;
+}
+
+.search-clear-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.search-clear-btn:hover {
+  opacity: 1;
+  color: #ff0000;
 }
 
 :root[data-theme="light"] .search-input {
@@ -735,6 +737,7 @@ p.page-subtle {
 :root[data-theme="light"] .tag-chip {
   background-color: rgba(255, 255, 255, 0.8);
   border-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
 }
 
 :root[data-theme="light"] .tag-chip:hover {
@@ -906,21 +909,23 @@ p.page-subtle {
 /* text-gradient class removed - using solid colors instead */
 
 .hero-gradient {
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+
+:root[data-theme="dark"] .hero-gradient {
   background:
     radial-gradient(1000px 400px at 20% -10%, rgba(93,209,255,0.10), transparent 60%),
     radial-gradient(1000px 400px at 80% -10%, rgba(125,92,255,0.10), transparent 60%),
     rgba(30, 41, 59, 0.6);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--color-border-card);
 }
 
 :root[data-theme="light"] .hero-gradient {
   background:
-    radial-gradient(1000px 400px at 20% -10%, rgba(37,99,235,0.08), transparent 60%),
-    radial-gradient(1000px 400px at 80% -10%, rgba(139,92,246,0.08), transparent 60%),
+    radial-gradient(1000px 400px at 20% -10%, rgba(255,0,0,0.08), transparent 60%),
     rgba(255, 255, 255, 0.9);
-  backdrop-filter: none;
 }
 
 .glass-card {

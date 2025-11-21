@@ -180,46 +180,45 @@ function PresentationPage({ onNavigate, theme, onThemeToggle }) {
     );
   }
 
-  return e("div", { className: "app-shell" },
-    // Header bar
-    e("div", { className: "app-header-bar" },
-      e("div", { className: "app-header-left" },
-        e("a", {
-          href: "#",
-          className: "back-link",
-          onClick: (ev) => { ev.preventDefault(); onNavigate("home"); }
-        }, "← Voltar")
+  return e("div", { className: "page fade-in" },
+    // Header
+    e("header", { className: "page-header" },
+      e("a", {
+        href: "#",
+        className: "back-link",
+        onClick: (ev) => { ev.preventDefault(); onNavigate("home"); }
+      }, "← Voltar"),
+      e("div", { className: "page-header-content" },
+        e("h1", { className: "page-title" }, "Apresentação"),
+        e("p", { className: "page-subtle" }, "Biblioteca da AIDS")
       ),
-      e("div", { className: "app-header-title" }, "Apresentação"),
       e("button", {
         className: "theme-toggle-btn",
         onClick: onThemeToggle,
-        style: { fontSize: ".8rem", padding: ".4rem .6rem" }
+        "aria-label": "Alternar tema"
       }, "☀️")
     ),
 
     // Content
-    e("div", { className: "page-body" },
-      e("div", { className: "presentation-card" },
-        e("h1", { className: "presentation-title" }, data.title),
-        
-        data.heroImage && e("div", { className: "presentation-heroimg-wrapper" },
-          e("img", { src: data.heroImage, alt: "Biblioteca Hero" })
-        ),
-
-        e("div", { className: "presentation-textblock" }, data.content),
-
-        data.audioUrl && e("div", { className: "audio-row" },
-          e("button", {
-            className: "audio-btn",
-            onClick: handleAudioToggle
-          }, `🎵 ${isPlaying ? "Pausar" : "Audiodescrição"}`)
-        )
+    e("div", { className: "presentation-card" },
+      data.heroImage && e("div", { className: "presentation-heroimg-wrapper" },
+        e("img", { src: data.heroImage, alt: "Biblioteca Hero" })
       ),
 
-      data.disclaimer && e("div", { className: "disclaimer-card" },
-        data.disclaimer
+      e("div", { className: "presentation-textblock" }, data.content),
+
+      data.audioUrl && e("div", { className: "audio-row" },
+        e("button", {
+          className: "audio-btn",
+          type: "button",
+          "aria-pressed": isPlaying ? "true" : "false",
+          onClick: handleAudioToggle
+        }, isPlaying ? "⏸️ Pausar" : "▶️ Audiodescrição")
       )
+    ),
+
+    data.disclaimer && e("div", { className: "disclaimer-card" },
+      data.disclaimer
     ),
 
     e("div", { className: "app-footer-line" },
@@ -244,9 +243,15 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
   const allTags = [...new Set(books.flatMap(b => b.tags || []))];
 
   const filteredBooks = books.filter(book => {
-    const matchesSearch = !searchTerm || 
-      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (book.source || "").toLowerCase().includes(searchTerm.toLowerCase());
+    if (!searchTerm && !selectedTag) return true;
+
+    const searchLower = searchTerm.toLowerCase().trim();
+    const matchesSearch = !searchTerm ||
+      book.title.toLowerCase().includes(searchLower) ||
+      (book.source || "").toLowerCase().includes(searchLower) ||
+      (book.description || "").toLowerCase().includes(searchLower) ||
+      (book.tags || []).some(tag => tag.toLowerCase().includes(searchLower));
+
     const matchesTag = !selectedTag || (book.tags || []).includes(selectedTag);
     return matchesSearch && matchesTag;
   });
@@ -273,13 +278,20 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
     e("div", { className: "page-body" },
       // Filters
       e("div", { className: "filters-row" },
-        e("input", {
-          type: "text",
-          className: "search-input",
-          placeholder: "Buscar por título ou fonte...",
-          value: searchTerm,
-          onChange: (ev) => setSearchTerm(ev.target.value)
-        }),
+        e("div", { className: "search-input-wrapper" },
+          e("input", {
+            type: "text",
+            className: "search-input",
+            placeholder: "Buscar por título ou fonte...",
+            value: searchTerm,
+            onChange: (ev) => setSearchTerm(ev.target.value)
+          }),
+          searchTerm && e("button", {
+            className: "search-clear-btn",
+            onClick: () => setSearchTerm(""),
+            "aria-label": "Limpar busca"
+          }, "✕")
+        ),
         allTags.map(tag =>
           e("button", {
             key: tag,
@@ -401,8 +413,10 @@ function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
 
           book.audioUrl && e("button", {
             className: "btn-audio",
+            type: "button",
+            "aria-pressed": isPlaying ? "true" : "false",
             onClick: handleAudioToggle
-          }, `🎵 ${isPlaying ? "Pausar" : "Audiodescrição"}`)
+          }, isPlaying ? "⏸️ Pausar" : "▶️ Audiodescrição")
         ),
 
         // Description
