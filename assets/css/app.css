@@ -471,7 +471,7 @@ p.page-subtle {
 /* Removed - using unified color scheme */
 
 .presentation-heroimg-wrapper {
-  background-color: #ff0000;
+  background-color: #E31E24;
   border-radius: 0.75rem;
   border: 1px solid var(--color-border-card);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -485,7 +485,7 @@ p.page-subtle {
 }
 
 :root[data-theme="dark"] .presentation-heroimg-wrapper {
-  background-color: #ff0000;
+  background-color: #E31E24;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
@@ -599,7 +599,7 @@ p.page-subtle {
 }
 
 .presentation-heroimg-wrapper {
-  background-color: #ff0000;
+  background-color: #E31E24;
   border-radius: 0.75rem;
   border: 1px solid var(--color-border-card);
   box-shadow: var(--shadow-soft);
