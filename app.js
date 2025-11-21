@@ -152,6 +152,10 @@ function HomePage({ onNavigate, theme, onThemeToggle }) {
           )
         )
       )
+    ),
+
+    e("div", { className: "app-footer-line" },
+      "© 2025 Dezembro Vermelho • Ministério da Saúde"
     )
   );
 }
@@ -330,7 +334,7 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      `${filteredBooks.length} publicação${filteredBooks.length !== 1 ? "ões" : ""} disponível${filteredBooks.length !== 1 ? "is" : ""}`
+      "© 2025 Dezembro Vermelho • Ministério da Saúde"
     )
   );
 }
