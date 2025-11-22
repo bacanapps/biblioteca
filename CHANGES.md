@@ -1,5 +1,23 @@
 # 🎨 UPDATES APPLIED - Biblioteca da AIDS
 
+## 🆕 Latest Updates
+
+### 📊 Google Analytics Integration (2025-11-22)
+✅ **Analytics Tracking Added**
+- Integrated Google Analytics 4 (GA4) for user behavior monitoring
+- Measurement ID: `G-8LF7TTE76Z`
+- Tracks page views, interactions, session time, and device usage
+- Privacy-compliant implementation (LGPD)
+- Added to `index.html` in `<head>` section
+
+**Benefits:**
+- Monitor app usage and engagement
+- Understand user navigation patterns
+- Track audiodescrição and PDF access usage
+- Optimize user experience based on data
+
+---
+
 ## ✅ Changes Made to Match biblioteca.bebot.co
 
 ### 1. **Home Page Redesign**

@@ -210,6 +210,38 @@ Todas as publicações incluem:
 - ✅ Design tokens CSS
 - ✅ 20 publicações com capas ilustrativas e links para PDFs oficiais
 - ✅ Interface simplificada nas páginas de detalhes (sem abas)
+- ✅ Google Analytics 4 (GA4) para análise de uso e métricas
+
+## 📊 Analytics e Métricas
+
+A aplicação integra Google Analytics 4 (GA4) para monitoramento de uso e comportamento dos usuários:
+
+**Measurement ID**: `G-8LF7TTE76Z`
+
+**Dados Coletados:**
+- Visualizações de página
+- Interações com elementos (cliques, navegação)
+- Tempo de sessão
+- Uso de recursos (audiodescrições, busca, filtros)
+- Dispositivos e navegadores utilizados
+
+**Implementação:**
+O código do Google Analytics está incluído no `<head>` do `index.html`:
+```html
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8LF7TTE76Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-8LF7TTE76Z');
+</script>
+```
+
+**Privacidade:**
+- Os dados são anonimizados
+- Usado apenas para fins de melhoria da aplicação
+- Conforme as diretrizes da LGPD
 
 ## 📱 PWA Features
 
