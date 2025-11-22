@@ -214,19 +214,39 @@ Todas as publicações incluem:
 
 ## 📊 Analytics e Métricas
 
-A aplicação integra Google Analytics 4 (GA4) para monitoramento de uso e comportamento dos usuários:
+A aplicação integra Google Analytics 4 (GA4) com tracking avançado para monitoramento detalhado de uso e comportamento dos usuários:
 
 **Measurement ID**: `G-8LF7TTE76Z`
 
-**Dados Coletados:**
-- Visualizações de página
-- Interações com elementos (cliques, navegação)
-- Tempo de sessão
-- Uso de recursos (audiodescrições, busca, filtros)
-- Dispositivos e navegadores utilizados
+### Eventos Rastreados
 
-**Implementação:**
-O código do Google Analytics está incluído no `<head>` do `index.html`:
+**Navegação:**
+- ✅ **Page Views** - Todas as páginas (Home, Apresentação, Publicações, Detalhes)
+- ✅ **Publication Views** - Cada publicação acessada com ID e título
+
+**Interações com Conteúdo:**
+- ✅ **Audio Plays** - Reprodução de audiodescrições (Apresentação e Publicações)
+- ✅ **PDF Opens** - Cliques em links de PDFs com título e URL
+- ✅ **Search** - Termos de busca e quantidade de resultados (debounced 1s)
+- ✅ **Filter Usage** - Filtros por tags selecionados
+- ✅ **Theme Toggle** - Alternância entre temas claro/escuro
+
+### Métricas Disponíveis
+
+Com estes dados você pode analisar:
+
+- **Publicações mais populares** - Quais documentos são mais acessados
+- **Engajamento com audiodescrições** - Quantas pessoas utilizam áudio
+- **Downloads de PDFs** - Quais materiais são mais baixados
+- **Padrões de busca** - O que os usuários procuram
+- **Uso de filtros** - Quais categorias são mais relevantes
+- **Preferências de tema** - Proporção de usuários em modo escuro/claro
+- **Fluxo de navegação** - Como usuários exploram a biblioteca
+- **Taxa de abandono** - Em que pontos usuários saem
+
+### Implementação Técnica
+
+**Google Tag** no `index.html`:
 ```html
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8LF7TTE76Z"></script>
@@ -238,10 +258,34 @@ O código do Google Analytics está incluído no `<head>` do `index.html`:
 </script>
 ```
 
-**Privacidade:**
-- Os dados são anonimizados
-- Usado apenas para fins de melhoria da aplicação
-- Conforme as diretrizes da LGPD
+**AnalyticsTracker** em `app.js`:
+```javascript
+// Exemplo de uso
+AnalyticsTracker.trackPublicationView(bookId, bookTitle);
+AnalyticsTracker.trackAudioPlay('book', bookTitle);
+AnalyticsTracker.trackPdfOpen(bookTitle, pdfUrl);
+AnalyticsTracker.trackSearch(searchTerm, resultCount);
+```
+
+### Eventos Customizados no GA4
+
+| Evento | Categoria | Parâmetros |
+|--------|-----------|------------|
+| `page_view` | - | page_title, page_path |
+| `view_publication` | engagement | publication_id, publication_title |
+| `play_audio` | engagement | audio_type, content_title |
+| `open_pdf` | engagement | pdf_url, publication_title |
+| `search` | - | search_term, result_count |
+| `use_filter` | engagement | filter_tag |
+| `toggle_theme` | engagement | theme |
+
+### Privacidade e Conformidade
+
+- ✅ Os dados são anonimizados automaticamente pelo GA4
+- ✅ Não coleta informações pessoais identificáveis
+- ✅ Usado apenas para fins de melhoria da aplicação
+- ✅ Conforme as diretrizes da LGPD
+- ✅ Console logging para debugging (pode ser removido em produção)
 
 ## 📱 PWA Features
 

@@ -3,18 +3,41 @@
 ## 🆕 Latest Updates
 
 ### 📊 Google Analytics Integration (2025-11-22)
-✅ **Analytics Tracking Added**
+
+#### Initial Implementation
+✅ **Basic Analytics Tracking Added**
 - Integrated Google Analytics 4 (GA4) for user behavior monitoring
 - Measurement ID: `G-8LF7TTE76Z`
-- Tracks page views, interactions, session time, and device usage
+- Added gtag.js script to `index.html` in `<head>` section
 - Privacy-compliant implementation (LGPD)
-- Added to `index.html` in `<head>` section
+
+#### Enhanced Tracking Implementation
+✅ **Comprehensive Event Tracking**
+- Created `AnalyticsTracker` utility class in `app.js`
+- **Page Views**: Automatic tracking on route changes (Home, Apresentação, Publicações, Detalhes)
+- **Publication Views**: Track each book/publication with ID and title
+- **Audio Plays**: Track presentation and book audiodescrições
+- **PDF Opens**: Track which PDFs are accessed with title and URL
+- **Search Usage**: Track search terms and result counts (debounced 1s)
+- **Filter Usage**: Track tag filter selections
+- **Theme Toggles**: Track light/dark mode preferences
+
+**Events Implemented:**
+- `page_view` - Navigation tracking
+- `view_publication` - Individual publication access
+- `play_audio` - Audio interaction tracking
+- `open_pdf` - PDF download/view tracking
+- `search` - Search behavior analysis
+- `use_filter` - Filter usage patterns
+- `toggle_theme` - Theme preference tracking
 
 **Benefits:**
-- Monitor app usage and engagement
-- Understand user navigation patterns
-- Track audiodescrição and PDF access usage
-- Optimize user experience based on data
+- Monitor which publications are most popular (e.g., "Histórias da Aids", "PCDT HIV")
+- Understand user navigation patterns through the library
+- Track audiodescrição and PDF access usage per publication
+- Analyze search behavior and optimize content discoverability
+- Optimize user experience based on detailed interaction data
+- Console logging for debugging (can be removed in production)
 
 ---
 
