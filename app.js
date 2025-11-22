@@ -7,6 +7,93 @@
 const { useState, useEffect, useRef } = React;
 const e = React.createElement;
 
+/* ========== ANALYTICS TRACKER ========== */
+const AnalyticsTracker = {
+  // Check if gtag is available
+  isAvailable() {
+    return typeof window.gtag === 'function';
+  },
+
+  // Track page views
+  trackPageView(pageName, pageTitle) {
+    if (!this.isAvailable()) return;
+    window.gtag('event', 'page_view', {
+      page_title: pageTitle,
+      page_location: window.location.href,
+      page_path: window.location.pathname + window.location.hash
+    });
+    console.log('📊 Analytics: Page view -', pageName);
+  },
+
+  // Track publication views
+  trackPublicationView(bookId, bookTitle) {
+    if (!this.isAvailable()) return;
+    window.gtag('event', 'view_publication', {
+      event_category: 'engagement',
+      event_label: bookTitle,
+      publication_id: bookId,
+      publication_title: bookTitle
+    });
+    console.log('📊 Analytics: Publication view -', bookTitle);
+  },
+
+  // Track audio plays
+  trackAudioPlay(audioType, contentTitle) {
+    if (!this.isAvailable()) return;
+    window.gtag('event', 'play_audio', {
+      event_category: 'engagement',
+      event_label: contentTitle,
+      audio_type: audioType,
+      content_title: contentTitle
+    });
+    console.log('📊 Analytics: Audio play -', audioType, '-', contentTitle);
+  },
+
+  // Track PDF opens
+  trackPdfOpen(bookTitle, pdfUrl) {
+    if (!this.isAvailable()) return;
+    window.gtag('event', 'open_pdf', {
+      event_category: 'engagement',
+      event_label: bookTitle,
+      pdf_url: pdfUrl,
+      publication_title: bookTitle
+    });
+    console.log('📊 Analytics: PDF open -', bookTitle);
+  },
+
+  // Track search usage
+  trackSearch(searchTerm, resultCount) {
+    if (!this.isAvailable()) return;
+    window.gtag('event', 'search', {
+      search_term: searchTerm,
+      result_count: resultCount
+    });
+    console.log('📊 Analytics: Search -', searchTerm, '- Results:', resultCount);
+  },
+
+  // Track filter usage
+  trackFilter(filterTag) {
+    if (!this.isAvailable()) return;
+    window.gtag('event', 'use_filter', {
+      event_category: 'engagement',
+      event_label: filterTag,
+      filter_tag: filterTag
+    });
+    console.log('📊 Analytics: Filter -', filterTag);
+  },
+
+  // Track theme toggle
+  trackThemeToggle(newTheme) {
+    if (!this.isAvailable()) return;
+    window.gtag('event', 'toggle_theme', {
+      event_category: 'engagement',
+      event_label: newTheme,
+      theme: newTheme
+    });
+    console.log('📊 Analytics: Theme toggle -', newTheme);
+  }
+};
+
 /* ========== THEME MANAGER ========== */
 const ThemeManager = {
   STORAGE_KEY: "biblioteca-theme",
@@ -125,7 +212,10 @@ function HomePage({ onNavigate, theme, onThemeToggle }) {
         // Card 1: Apresentação
         e("article", {
           className: "choice-card glass-card card-hover",
-          onClick: () => onNavigate("presentation")
+          onClick: () => {
+            AnalyticsTracker.trackPageView('presentation', 'Apresentação');
+            onNavigate("presentation");
+          }
         },
           e("div", { className: "choice-icon" }, "📘"),
           e("h2", { className: "choice-title" }, "Apresentação"),
@@ -140,7 +230,10 @@ function HomePage({ onNavigate, theme, onThemeToggle }) {
         // Card 2: Publicações
         e("article", {
           className: "choice-card glass-card card-hover",
-          onClick: () => onNavigate("books")
+          onClick: () => {
+            AnalyticsTracker.trackPageView('books', 'Publicações');
+            onNavigate("books");
+          }
         },
           e("div", { className: "choice-icon" }, "📚"),
           e("h2", { className: "choice-title" }, "Publicações"),
@@ -174,6 +267,9 @@ function PresentationPage({ onNavigate, theme, onThemeToggle }) {
 
   const handleAudioToggle = () => {
     if (!data?.audioUrl) return;
+    if (!isPlaying) {
+      AnalyticsTracker.trackAudioPlay('presentation', 'Apresentação da Biblioteca');
+    }
     audioPlayer.toggle(data.audioUrl, () => setIsPlaying(false));
     setIsPlaying(!isPlaying);
   };
@@ -239,6 +335,29 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
       .then(data => setBooks(data.books || []))
       .catch(err => console.error("Erro ao carregar livros:", err));
   }, []);
+
+  // Track search usage with debouncing
+  useEffect(() => {
+    if (!searchTerm) return;
+    const timer = setTimeout(() => {
+      const resultCount = books.filter(book => {
+        const searchLower = searchTerm.toLowerCase().trim();
+        return book.title.toLowerCase().includes(searchLower) ||
+               (book.source || "").toLowerCase().includes(searchLower) ||
+               (book.description || "").toLowerCase().includes(searchLower) ||
+               (book.tags || []).some(tag => tag.toLowerCase().includes(searchLower));
+      }).length;
+      AnalyticsTracker.trackSearch(searchTerm, resultCount);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [searchTerm, books]);
+
+  // Track filter usage
+  useEffect(() => {
+    if (selectedTag) {
+      AnalyticsTracker.trackFilter(selectedTag);
+    }
+  }, [selectedTag]);
 
   const allTags = [...new Set(books.flatMap(b => b.tags || []))];
 
@@ -311,7 +430,10 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
               e("div", {
                 key: book.id,
                 className: "book-card",
-                onClick: () => onNavigate("book", book.id)
+                onClick: () => {
+                  AnalyticsTracker.trackPublicationView(book.id, book.title);
+                  onNavigate("book", book.id);
+                }
               },
                 e("div", { className: "book-thumb" },
                   book.thumbnail
@@ -356,6 +478,9 @@ function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
 
   const handleAudioToggle = () => {
     if (!book?.audioUrl) return;
+    if (!isPlaying) {
+      AnalyticsTracker.trackAudioPlay('book', book.title);
+    }
     audioPlayer.toggle(book.audioUrl, () => setIsPlaying(false));
     setIsPlaying(!isPlaying);
   };
@@ -408,7 +533,8 @@ function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
             href: book.pdfUrl,
             target: "_blank",
             rel: "noopener noreferrer",
-            className: "btn-open-pdf"
+            className: "btn-open-pdf",
+            onClick: () => AnalyticsTracker.trackPdfOpen(book.title, book.pdfUrl)
           }, "📄 Abrir PDF"),
 
           book.audioUrl && e("button", {
@@ -461,6 +587,18 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
+  // Track page views when route changes
+  useEffect(() => {
+    const pageNames = {
+      home: 'Home',
+      presentation: 'Apresentação',
+      books: 'Publicações',
+      book: 'Detalhes da Publicação'
+    };
+    const pageName = pageNames[route.page] || 'Unknown Page';
+    AnalyticsTracker.trackPageView(route.page, pageName);
+  }, [route]);
+
   const navigate = (page, params = null) => {
     setRoute({ page, params });
     audioPlayer.stop();
@@ -474,7 +612,11 @@ function App() {
   };
 
   const handleThemeToggle = () => {
-    setTheme(current => ThemeManager.toggle(current));
+    setTheme(current => {
+      const nextTheme = ThemeManager.toggle(current);
+      AnalyticsTracker.trackThemeToggle(nextTheme);
+      return nextTheme;
+    });
   };
 
   // Render current page
