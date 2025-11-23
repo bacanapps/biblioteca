@@ -248,7 +248,7 @@ function HomePage({ onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      `© 2025 Dezembro Vermelho • Ministério da Saúde • ${props.appVersion || "v23.11.25 16:45"}`
+      "© 2025 Dezembro Vermelho • Ministério da Saúde • v23.11.25 16:45"
     )
   );
 }
@@ -318,7 +318,7 @@ function PresentationPage({ onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      `© 2025 Dezembro Vermelho • Ministério da Saúde • ${props.appVersion || "v23.11.25 16:45"}`
+      "© 2025 Dezembro Vermelho • Ministério da Saúde • v23.11.25 16:45"
     )
   );
 }
@@ -456,7 +456,7 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      `© 2025 Dezembro Vermelho • Ministério da Saúde • ${props.appVersion || "v23.11.25 16:45"}`
+      "© 2025 Dezembro Vermelho • Ministério da Saúde • v23.11.25 16:45"
     )
   );
 }
@@ -555,7 +555,7 @@ function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      `© 2025 Dezembro Vermelho • Ministério da Saúde • ${props.appVersion || "v23.11.25 16:45"}`
+      "© 2025 Dezembro Vermelho • Ministério da Saúde • v23.11.25 16:45"
     )
   );
 }
@@ -571,21 +571,6 @@ function App() {
     return { page: "home", params: null };
   });
   const [theme, setTheme] = useState(() => ThemeManager.init());
-  const [appVersion, setAppVersion] = useState("v23.11.25 16:45");
-
-  // Fetch app version on mount
-  useEffect(() => {
-    fetch('./version.json', { cache: 'no-store' })
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.version) {
-          setAppVersion(data.version);
-        }
-      })
-      .catch(() => {
-        // Keep default version on error
-      });
-  }, []);
 
   // Listen to hash changes
   useEffect(() => {
@@ -641,37 +626,32 @@ function App() {
     pageComponent = e(HomePage, {
       onNavigate: navigate,
       theme,
-      onThemeToggle: handleThemeToggle,
-      appVersion
+      onThemeToggle: handleThemeToggle
     });
   } else if (route.page === "presentation") {
     pageComponent = e(PresentationPage, {
       onNavigate: navigate,
       theme,
-      onThemeToggle: handleThemeToggle,
-      appVersion
+      onThemeToggle: handleThemeToggle
     });
   } else if (route.page === "books") {
     pageComponent = e(BooksListPage, {
       onNavigate: navigate,
       theme,
-      onThemeToggle: handleThemeToggle,
-      appVersion
+      onThemeToggle: handleThemeToggle
     });
   } else if (route.page === "book") {
     pageComponent = e(BookDetailPage, {
       bookId: route.params,
       onNavigate: navigate,
       theme,
-      onThemeToggle: handleThemeToggle,
-      appVersion
+      onThemeToggle: handleThemeToggle
     });
   } else {
     pageComponent = e(HomePage, {
       onNavigate: navigate,
       theme,
-      onThemeToggle: handleThemeToggle,
-      appVersion
+      onThemeToggle: handleThemeToggle
     });
   }
 
