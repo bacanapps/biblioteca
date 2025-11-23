@@ -7,6 +7,19 @@
 const { useState, useEffect, useRef } = React;
 const e = React.createElement;
 
+/* ========== APP VERSION ========== */
+const BUILD_VERSION = "v23.11.25 16:45"; // Update this when deploying
+const getAppVersion = () => {
+  const loaded = new Date().toLocaleString('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+  return `${BUILD_VERSION} (Carregado: ${loaded})`;
+};
+
 /* ========== ANALYTICS TRACKER ========== */
 const AnalyticsTracker = {
   // Check if gtag is available
@@ -248,7 +261,7 @@ function HomePage({ onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      "© 2025 Dezembro Vermelho • Ministério da Saúde • v23.11.25 16:45"
+      `© 2025 Dezembro Vermelho • Ministério da Saúde • ${getAppVersion()}`
     )
   );
 }
@@ -318,7 +331,7 @@ function PresentationPage({ onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      "© 2025 Dezembro Vermelho • Ministério da Saúde • v23.11.25 16:45"
+      `© 2025 Dezembro Vermelho • Ministério da Saúde • ${getAppVersion()}`
     )
   );
 }
@@ -456,7 +469,7 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      "© 2025 Dezembro Vermelho • Ministério da Saúde • v23.11.25 16:45"
+      `© 2025 Dezembro Vermelho • Ministério da Saúde • ${getAppVersion()}`
     )
   );
 }
@@ -555,7 +568,7 @@ function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      "© 2025 Dezembro Vermelho • Ministério da Saúde • v23.11.25 16:45"
+      `© 2025 Dezembro Vermelho • Ministério da Saúde • ${getAppVersion()}`
     )
   );
 }
