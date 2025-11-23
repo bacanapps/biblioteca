@@ -248,7 +248,7 @@ function HomePage({ onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      "© 2025 Dezembro Vermelho • Ministério da Saúde"
+      "© 2025 Dezembro Vermelho • Ministério da Saúde • v2025.11.23"
     )
   );
 }
@@ -318,7 +318,7 @@ function PresentationPage({ onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      "© 2025 Dezembro Vermelho • Ministério da Saúde"
+      "© 2025 Dezembro Vermelho • Ministério da Saúde • v2025.11.23"
     )
   );
 }
@@ -456,7 +456,7 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      "© 2025 Dezembro Vermelho • Ministério da Saúde"
+      "© 2025 Dezembro Vermelho • Ministério da Saúde • v2025.11.23"
     )
   );
 }
@@ -555,7 +555,7 @@ function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      "© 2025 Dezembro Vermelho • Ministério da Saúde"
+      "© 2025 Dezembro Vermelho • Ministério da Saúde • v2025.11.23"
     )
   );
 }
