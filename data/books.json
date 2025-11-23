@@ -23,7 +23,7 @@
       "description": "Protocolo Clínico e Diretrizes Terapêuticas para o manejo da infecção pelo HIV em adultos, estabelecendo as diretrizes terapêuticas no SUS."
     },
         {
-      "id": "pcdt-hiv-adultos",
+      "id": "pcdt-hiv-adultos-modulo2",
       "title": "PCDT para manejo da infecção pelo HIV em adultos - módulo II",
       "source": "Ministério da Saúde",
       "year": "2024",
@@ -67,7 +67,7 @@
       "description": "Protocolo específico para o manejo clínico de crianças e adolescentes vivendo com HIV, incluindo esquemas terapêuticos e monitoramento."
     },
         {
-      "id": "pcdt-hiv-criancas",
+      "id": "pcdt-hiv-criancas-modulo2",
       "title": "PCDT para manejo da infecção pelo HIV em crianças e adolescentes - módulo II",
       "source": "Ministério da Saúde",
       "year": "2024",
