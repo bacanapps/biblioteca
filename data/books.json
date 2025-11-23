@@ -161,7 +161,7 @@
       "year": "2024",
       "tags": ["Transmissão Vertical", "Gestantes", "Prevenção"],
       "thumbnail": "assets/img/13_guia_transmissao_vertical_hiv.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2024/guia-para-certificacao-_eletronica.pdf/view",
       "audioUrl": null,
       "description": "Guia com critérios e processos para certificação da eliminação da transmissão vertical de HIV e outras infecções."
     },
@@ -172,7 +172,7 @@
       "year": "2024",
       "tags": [],
       "thumbnail": "assets/img/14_manual_cuidado_contínuo_hiv_e_aids.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2023/manual-do-cuidado-continuo-das-pessoas-vivendo-com-hivaids-atual/view",
       "audioUrl": null,
       "description": "Manual sobre o cuidado contínuo e integral de pessoas vivendo com HIV, abordando aspectos clínicos e psicossociais."
     },
@@ -183,7 +183,7 @@
       "year": "2024",
       "tags": ["Legislação", "Direitos", "Jurídico"],
       "thumbnail": "assets/img/15_legislacao_e_o_hiv.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2023/legislacao-brasileira-e-o-hiv.pdf/view",
       "audioUrl": null,
       "description": "Compilação da legislação brasileira relacionada aos direitos das pessoas vivendo com HIV e políticas públicas de AIDS."
     },
@@ -194,7 +194,7 @@
       "year": "2024",
       "tags": ["Monitoramento", "Indicadores", "Gestão"],
       "thumbnail": "assets/img/16_monit_integrado_hiv.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2025/monitoramento-integrado-do-cuidado-do-hiv-sumario-executivo/view",
       "audioUrl": null,
       "description": "Sumário executivo sobre o monitoramento integrado do cuidado do HIV no Brasil, com indicadores e metas."
     },
@@ -205,7 +205,7 @@
       "year": "2024",
       "tags": ["2030"],
       "thumbnail": "assets/img/17_diretrizes_eliminacao_aids_e_hiv_ate_2030.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2025/diretrizes-para-a-eliminacao-da-aids-e-da-transmissao-do-hiv-como-problemas-de-saude-publica-no-brasil-ate-2030.pdf/view",
       "audioUrl": null,
       "description": "Diretrizes estratégicas para eliminação da AIDS como problema de saúde pública no Brasil até 2030, alinhadas às metas globais."
     },
@@ -216,7 +216,7 @@
       "year": "2024",
       "tags": ["Gestantes", "Monitoramento", "Transmissão Vertical"],
       "thumbnail": "assets/img/18_relatorio_gestantes_com_hiv_e-ou_aids.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2025/relatorio-de-monitoramento-clinico-das-gestantes-vivendo-com-hiv-e_ou-aids.pdf/view",
       "audioUrl": null,
       "description": "Relatório de monitoramento clínico das gestantes vivendo com HIV, com dados sobre prevenção da transmissão vertical."
     }
