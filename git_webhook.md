@@ -19,11 +19,13 @@ This setup allows you to deploy the biblioteca PWA to a production server by pus
 
 ## Part 1: Local Setup (Already Completed)
 
-The production remote has been added to the local repository:
+The production remote has been added to the local repository using the SSH config alias:
 
 ```bash
-git remote add production root@173.249.16.84:/var/repo/biblioteca.git
+git remote add production contabo:/var/repo/biblioteca.git
 ```
+
+**Note:** If you have an SSH config alias set up (like `contabo` pointing to `root@173.249.16.84`), use that instead of the full SSH URL for convenience.
 
 Verify remotes:
 ```bash
