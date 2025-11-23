@@ -1,5 +1,5 @@
 /* sw.js – Biblioteca da AIDS PWA Service Worker */
-const VERSION = `v${Date.now()}`;
+const VERSION = "v202511231725";
 const CACHE_NAME = `biblioteca-cache-${VERSION}`;
 
 // Only same-origin assets
