@@ -248,7 +248,7 @@ function HomePage({ onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      `© 2025 Dezembro Vermelho • Ministério da Saúde • ${props.swVersion || "v23.11.25 16:45"}`
+      "© 2025 Dezembro Vermelho • Ministério da Saúde • v23.11.25 16:45"
     )
   );
 }
@@ -318,7 +318,7 @@ function PresentationPage({ onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      `© 2025 Dezembro Vermelho • Ministério da Saúde • ${props.swVersion || "v23.11.25 16:45"}`
+      "© 2025 Dezembro Vermelho • Ministério da Saúde • v23.11.25 16:45"
     )
   );
 }
@@ -456,7 +456,7 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      `© 2025 Dezembro Vermelho • Ministério da Saúde • ${props.swVersion || "v23.11.25 16:45"}`
+      "© 2025 Dezembro Vermelho • Ministério da Saúde • v23.11.25 16:45"
     )
   );
 }
@@ -555,7 +555,7 @@ function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      `© 2025 Dezembro Vermelho • Ministério da Saúde • ${props.swVersion || "v23.11.25 16:45"}`
+      "© 2025 Dezembro Vermelho • Ministério da Saúde • v23.11.25 16:45"
     )
   );
 }
@@ -571,23 +571,6 @@ function App() {
     return { page: "home", params: null };
   });
   const [theme, setTheme] = useState(() => ThemeManager.init());
-  const [swVersion, setSwVersion] = useState("v23.11.25 16:45");
-
-  // Fetch Service Worker version on mount
-  useEffect(() => {
-    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-      const messageChannel = new MessageChannel();
-      messageChannel.port1.onmessage = (event) => {
-        if (event.data && event.data.version) {
-          setSwVersion(event.data.version);
-        }
-      };
-      navigator.serviceWorker.controller.postMessage(
-        { type: 'GET_VERSION' },
-        [messageChannel.port2]
-      );
-    }
-  }, []);
 
   // Listen to hash changes
   useEffect(() => {
@@ -643,37 +626,32 @@ function App() {
     pageComponent = e(HomePage, {
       onNavigate: navigate,
       theme,
-      onThemeToggle: handleThemeToggle,
-      swVersion
+      onThemeToggle: handleThemeToggle
     });
   } else if (route.page === "presentation") {
     pageComponent = e(PresentationPage, {
       onNavigate: navigate,
       theme,
-      onThemeToggle: handleThemeToggle,
-      swVersion
+      onThemeToggle: handleThemeToggle
     });
   } else if (route.page === "books") {
     pageComponent = e(BooksListPage, {
       onNavigate: navigate,
       theme,
-      onThemeToggle: handleThemeToggle,
-      swVersion
+      onThemeToggle: handleThemeToggle
     });
   } else if (route.page === "book") {
     pageComponent = e(BookDetailPage, {
       bookId: route.params,
       onNavigate: navigate,
       theme,
-      onThemeToggle: handleThemeToggle,
-      swVersion
+      onThemeToggle: handleThemeToggle
     });
   } else {
     pageComponent = e(HomePage, {
       onNavigate: navigate,
       theme,
-      onThemeToggle: handleThemeToggle,
-      swVersion
+      onThemeToggle: handleThemeToggle
     });
   }
 

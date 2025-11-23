@@ -1,5 +1,5 @@
 /* sw.js – Biblioteca da AIDS PWA Service Worker */
-const VERSION = "v23.11.25 16:45";
+const VERSION = `v${Date.now()}`;
 const CACHE_NAME = `biblioteca-cache-${VERSION}`;
 
 // Only same-origin assets
@@ -133,11 +133,4 @@ self.addEventListener("fetch", (event) => {
       }
     })()
   );
-});
-
-/* Message handler: expose version to app */
-self.addEventListener("message", (event) => {
-  if (event.data && event.data.type === "GET_VERSION") {
-    event.ports[0].postMessage({ version: VERSION });
-  }
 });
