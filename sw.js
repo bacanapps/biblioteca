@@ -69,6 +69,15 @@ function isJson(req) {
   }
 }
 
+/* Helper: check if request is for version.json (never cache) */
+function isVersionFile(req) {
+  try {
+    return new URL(req.url).pathname.endsWith("/version.json");
+  } catch {
+    return false;
+  }
+}
+
 /* Fetch strategy */
 self.addEventListener("fetch", (event) => {
   const req = event.request;
@@ -79,6 +88,19 @@ self.addEventListener("fetch", (event) => {
 
   // Let cross-origin (CDNs) bypass the SW
   if (!sameOrigin) {
+    return;
+  }
+
+  // Always fetch version.json fresh (never cache)
+  if (isVersionFile(req)) {
+    event.respondWith(
+      fetch(req, { cache: "no-store" }).catch(() =>
+        new Response('{"version":"v23.11.25 16:45"}', {
+          status: 200,
+          headers: { "Content-Type": "application/json" }
+        })
+      )
+    );
     return;
   }
 
