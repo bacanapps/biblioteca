@@ -9,7 +9,7 @@ const e = React.createElement;
 
 /* ========== APP VERSION ========== */
 // Update this manually when deploying to reflect last GitHub update
-const APP_VERSION = '24/11/2025, 07:40';
+const APP_VERSION = '24/11/2025, 13:22';
 const getAppVersion = () => {
   return `(v. ${APP_VERSION})`;
 };
@@ -205,9 +205,9 @@ function HomePage({ onNavigate, theme, onThemeToggle }) {
     e("section", { className: "hero hero-gradient glass-card" },
       e("div", { className: "hero-header" },
         e("div", { className: "hero-content" },
-          e("h1", { className: "hero-title" }, "Biblioteca da AIDS"),
+          e("h1", { className: "hero-title" }, "BIBLIOTECA DIGITAL DA AIDS"),
           e("p", { className: "hero-lede" },
-            "Acesse materiais educativos sobre HIV/AIDS em formato acessível"
+            "Acesse publicações sobre HIV e aids disponibilizadas pelo Ministério da Saúde do Brasil. "
           )
         )
       )
@@ -227,7 +227,7 @@ function HomePage({ onNavigate, theme, onThemeToggle }) {
           e("div", { className: "choice-icon" }, "📘"),
           e("h2", { className: "choice-title" }, "Apresentação"),
           e("p", { className: "choice-desc" },
-            "Conheça o contexto da biblioteca e sua importância na luta contra a AIDS"
+            ""
           ),
           e("div", { className: "actions" },
             e("button", { className: "btn btn-primary" }, "Explorar")
@@ -245,7 +245,7 @@ function HomePage({ onNavigate, theme, onThemeToggle }) {
           e("div", { className: "choice-icon" }, "📚"),
           e("h2", { className: "choice-title" }, "Publicações"),
           e("p", { className: "choice-desc" },
-            "Acesse materiais técnicos e literários sobre HIV e aids"
+            ""
           ),
           e("div", { className: "actions" },
             e("button", { className: "btn btn-green" }, "Explorar") 
