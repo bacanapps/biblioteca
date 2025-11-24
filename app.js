@@ -9,7 +9,7 @@ const e = React.createElement;
 
 /* ========== APP VERSION ========== */
 // Update this manually when deploying to reflect last GitHub update
-const APP_VERSION = '24/11/2025, 13:40';
+const APP_VERSION = '24/11/2025, 07:40';
 const getAppVersion = () => {
   return `(v. ${APP_VERSION})`;
 };
