@@ -274,6 +274,69 @@ p.page-subtle {
   transform: scale(1.1);
 }
 
+/* Language toggle button - Fixed position top-right */
+.language-toggle-btn {
+  position: fixed;
+  top: 1.5rem;
+  right: 5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  color: #e2e8f0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.language-toggle-btn:hover {
+  background: rgba(30, 41, 59, 0.8);
+  transform: scale(1.05);
+}
+
+.language-toggle-btn:active {
+  transform: scale(1.02);
+}
+
+:root[data-theme="light"] .language-toggle-btn {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #1a1a1a;
+}
+
+:root[data-theme="light"] .language-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: scale(1.05);
+}
+
+/* Footer language toggle */
+.footer-lang-toggle {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.footer-lang-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+}
+
+:root[data-theme="light"] .footer-lang-toggle:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
 /* Cards section */
 .home-cards-col {
   width: 100%;
