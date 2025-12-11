@@ -9,7 +9,7 @@ const e = React.createElement;
 
 /* ========== APP VERSION ========== */
 // Update this manually when deploying to reflect last GitHub update
-const APP_VERSION = '10/12/2025, 20:20';
+const APP_VERSION = '11/12/2025, 10:00';
 const getAppVersion = () => {
   return `(v. ${APP_VERSION})`;
 };
@@ -164,7 +164,7 @@ const TRANSLATIONS = {
     },
     home: {
       heroTitle: 'AIDS DIGITAL LIBRARY',
-      heroDesc: 'Access publications on HIV and AIDS provided by the Brazilian Ministry of Health.',
+      heroDesc: 'Check out publications on HIV and AIDS made available by the Brazilian Ministry of Health.',
       cardApresentacao: {
         title: 'Introduction',
         button: 'Explore'
@@ -391,8 +391,7 @@ function HomePage({ onNavigate, theme, onThemeToggle, language, onLanguageToggle
     e("button", {
       className: "language-toggle-btn",
       onClick: onLanguageToggle,
-      "aria-label": t(language, 'common.languageToggleAria'),
-      style: { position: 'fixed', top: '24px', right: '80px', zIndex: 1000 }
+      "aria-label": t(language, 'common.languageToggleAria')
     }, language === 'en' ? '🇧🇷 PT' : '🇬🇧 EN'),
 
     // Hero section with gradient glass card
@@ -510,8 +509,7 @@ function PresentationPage({ onNavigate, theme, onThemeToggle, language, onLangua
       e("button", {
         className: "language-toggle-btn",
         onClick: onLanguageToggle,
-        "aria-label": t(language, 'common.languageToggleAria'),
-        style: { position: 'absolute', top: '16px', right: '60px' }
+        "aria-label": t(language, 'common.languageToggleAria')
       }, language === 'en' ? '🇧🇷 PT' : '🇬🇧 EN')
     ),
 
@@ -521,7 +519,7 @@ function PresentationPage({ onNavigate, theme, onThemeToggle, language, onLangua
         e("img", { src: data.heroImage, alt: t(language, 'apresentacao.subtitle') })
       ),
 
-      e("div", { className: "presentation-textblock" }, data.content),
+      e("div", { className: "presentation-textblock" }, language === 'en' ? data.contentEn : data.content),
 
       showAudioButton && e("div", { className: "audio-row" },
         e("button", {
