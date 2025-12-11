@@ -2,12 +2,23 @@
   "books": [
     {
       "id": "historias-da-aids",
-      "title": "Histórias da Aids - Volumes I e II",
+      "title": "Histórias da Aids - Volume I",
       "source": "Ministério da Saúde",
       "year": "2024",
-      "tags": [],
+      "tags": ["Histórias"],
+      "thumbnail": "assets/img/1.1_historias_da_aids.png",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2025/historias-da-aids-no-brasil-vol-i-eletronico.pdf/view",
+      "audioUrl": null,
+      "description": "Coletânea de histórias e testemunhos sobre a epidemia de AIDS no Brasil, reunindo relatos de pessoas vivendo com HIV, profissionais de saúde e ativistas."
+    },
+    {
+      "id": "historias-da-aids2",
+      "title": "Histórias da Aids - Volume II",
+      "source": "Ministério da Saúde",
+      "year": "2024",
+      "tags": ["Histórias"],
       "thumbnail": "assets/img/1.2_historias_da_aids.png",
-      "pdfUrl": "#",
+      "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2025/historias-da-aids-no-brasil-vol-ii-eletronico.pdf/view",
       "audioUrl": null,
       "description": "Coletânea de histórias e testemunhos sobre a epidemia de AIDS no Brasil, reunindo relatos de pessoas vivendo com HIV, profissionais de saúde e ativistas."
     },
@@ -72,7 +83,7 @@
       "source": "Ministério da Saúde",
       "year": "2024",
       "tags": ["Tratamento", "Crianças", "Adolescentes"],
-      "thumbnail": "assets/img/5.1_pcdt_hiv_crianca_modulo_1_2024_e.png",
+      "thumbnail": "assets/img/5.2_pcdt_hiv_criancas_modulo_ii_2024_e.png",
       "pdfUrl": "https://www.gov.br/aids/pt-br/central-de-conteudo/pcdts/PCDT_HIV_Crianas_Modulo_II_2024_e.pdf",
       "audioUrl": null,
       "description": "Protocolo específico para o manejo clínico de crianças e adolescentes vivendo com HIV, incluindo esquemas terapêuticos e monitoramento."
