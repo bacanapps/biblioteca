@@ -9,7 +9,7 @@ const e = React.createElement;
 
 /* ========== APP VERSION ========== */
 // Update this manually when deploying to reflect last GitHub update
-const APP_VERSION = '24/11/2025, 13:22';
+const APP_VERSION = '11/12/2025, 12:00';
 const getAppVersion = () => {
   return `(v. ${APP_VERSION})`;
 };
@@ -98,8 +98,142 @@ const AnalyticsTracker = {
       theme: newTheme
     });
     console.log('📊 Analytics: Theme toggle -', newTheme);
+  },
+
+  // Track language toggle
+  trackLanguageToggle(newLanguage) {
+    if (!this.isAvailable()) return;
+    window.gtag('event', 'language_toggle', {
+      language: newLanguage,
+      event_category: 'user_preference'
+    });
+    console.log('📊 Analytics: Language toggle -', newLanguage);
   }
 };
+
+/* ========== TRANSLATIONS ========== */
+const TRANSLATIONS = {
+  'pt-br': {
+    nav: {
+      voltar: 'Voltar'
+    },
+    home: {
+      heroTitle: 'BIBLIOTECA DIGITAL DA AIDS',
+      heroDesc: 'Acesse publicações sobre HIV e aids disponibilizadas pelo Ministério da Saúde do Brasil.',
+      cardApresentacao: {
+        title: 'Apresentação',
+        button: 'Explorar'
+      },
+      cardPublicacoes: {
+        title: 'Publicações',
+        button: 'Explorar'
+      }
+    },
+    apresentacao: {
+      title: 'Apresentação',
+      subtitle: 'Biblioteca da AIDS',
+      loading: 'Carregando...',
+      audioBtnPlay: '▶️ Audiodescrição',
+      audioBtnPause: '⏸️ Pausar'
+    },
+    books: {
+      title: 'Biblioteca da AIDS',
+      searchPlaceholder: 'Buscar por título ou fonte...',
+      clearBtn: 'Limpar busca',
+      noResults: 'Nenhum resultado encontrado'
+    },
+    bookDetail: {
+      subtitle: 'Biblioteca da AIDS',
+      sourceLabel: 'Fonte não especificada',
+      openPdf: '📄 Abrir PDF',
+      audioBtnPlay: '▶️ Audiodescrição',
+      audioBtnPause: '⏸️ Pausar',
+      descriptionLabel: 'Descrição não disponível.',
+      loading: 'Carregando...'
+    },
+    common: {
+      themeToggleAria: 'Alternar tema visual',
+      languageToggleAria: 'Alternar idioma',
+      languageLabel: 'Português',
+      footer: '© 2025 Dezembro Vermelho • Ministério da Saúde'
+    }
+  },
+  'en': {
+    nav: {
+      voltar: 'Back'
+    },
+    home: {
+      heroTitle: 'AIDS DIGITAL LIBRARY',
+      heroDesc: 'Check out publications on HIV and AIDS made available by the Brazilian Ministry of Health.',
+      cardApresentacao: {
+        title: 'Introduction',
+        button: 'Explore'
+      },
+      cardPublicacoes: {
+        title: 'Publications',
+        button: 'Explore'
+      }
+    },
+    apresentacao: {
+      title: 'Introduction',
+      subtitle: 'AIDS Library',
+      loading: 'Loading...',
+      audioBtnPlay: '▶️ Audio Description',
+      audioBtnPause: '⏸️ Pause'
+    },
+    books: {
+      title: 'AIDS Library',
+      searchPlaceholder: 'Search by title or source...',
+      clearBtn: 'Clear search',
+      noResults: 'No results found'
+    },
+    bookDetail: {
+      subtitle: 'AIDS Library',
+      sourceLabel: 'Source not specified',
+      openPdf: '📄 Open PDF',
+      audioBtnPlay: '▶️ Audio Description',
+      audioBtnPause: '⏸️ Pause',
+      descriptionLabel: 'Description not available.',
+      loading: 'Loading...'
+    },
+    common: {
+      themeToggleAria: 'Toggle visual theme',
+      languageToggleAria: 'Toggle language',
+      languageLabel: 'English',
+      footer: '© 2025 Red December • Ministry of Health'
+    }
+  }
+};
+
+/**
+ * Translation helper function
+ * @param {string} language - The current language ('en' or 'pt-br')
+ * @param {string} key - The translation key path (e.g., 'home.heroTitle')
+ * @returns {string} The translated string
+ */
+function t(language, key) {
+  const keys = key.split('.');
+  let value = TRANSLATIONS[language];
+
+  for (const k of keys) {
+    if (value && typeof value === 'object') {
+      value = value[k];
+    } else {
+      // Fallback to Portuguese if key not found
+      value = TRANSLATIONS['pt-br'];
+      for (const k2 of keys) {
+        if (value && typeof value === 'object') {
+          value = value[k2];
+        } else {
+          return key; // Return key if not found
+        }
+      }
+      break;
+    }
+  }
+
+  return value || key;
+}
 
 /* ========== THEME MANAGER ========== */
 const ThemeManager = {
@@ -191,23 +325,82 @@ class AudioPlayer {
 
 const audioPlayer = new AudioPlayer();
 
+/* ========== LANGUAGE MANAGER ========== */
+function useLanguage() {
+  const [language, setLanguage] = useState(() => {
+    // 1. Check URL parameter first (?lang=en)
+    const urlParams = new URLSearchParams(window.location.search);
+    const langParam = urlParams.get('lang');
+    if (langParam === 'en' || langParam === 'pt-br' || langParam === 'pt') {
+      return langParam === 'en' ? 'en' : 'pt-br';
+    }
+
+    // 2. Check localStorage
+    const saved = localStorage.getItem('biblioteca-language');
+    if (saved === 'en' || saved === 'pt-br') {
+      return saved;
+    }
+
+    // 3. Browser language detection (default)
+    const browserLang = navigator.language || navigator.userLanguage;
+    if (browserLang && browserLang.toLowerCase().startsWith('en')) {
+      return 'en';
+    }
+
+    // 4. Default to Portuguese
+    return 'pt-br';
+  });
+
+  const toggleLanguage = () => {
+    setLanguage(current => {
+      const next = current === 'en' ? 'pt-br' : 'en';
+      localStorage.setItem('biblioteca-language', next);
+      document.documentElement.setAttribute('lang', next);
+
+      // Update URL parameter
+      const url = new URL(window.location);
+      url.searchParams.set('lang', next);
+      window.history.pushState({}, '', url);
+
+      // Track language change
+      AnalyticsTracker.trackLanguageToggle(next);
+
+      return next;
+    });
+  };
+
+  // Apply language on mount
+  useEffect(() => {
+    document.documentElement.setAttribute('lang', language);
+  }, [language]);
+
+  return { language, toggleLanguage };
+}
+
 /* ========== HOME PAGE ========== */
-function HomePage({ onNavigate, theme, onThemeToggle }) {
+function HomePage({ onNavigate, theme, onThemeToggle, language, onLanguageToggle }) {
   return e("div", { className: "page fade-in" },
     // Theme toggle button (fixed position)
     e("button", {
       className: "theme-toggle-btn",
       onClick: onThemeToggle,
-      "aria-label": "Alternar tema"
+      "aria-label": t(language, 'common.themeToggleAria')
     }, theme === "light" ? "🌙" : "☀️"),
+
+    // Language toggle button
+    e("button", {
+      className: "language-toggle-btn",
+      onClick: onLanguageToggle,
+      "aria-label": t(language, 'common.languageToggleAria')
+    }, language === 'en' ? '🇧🇷 PT' : '🇬🇧 EN'),
 
     // Hero section with gradient glass card
     e("section", { className: "hero hero-gradient glass-card" },
       e("div", { className: "hero-header" },
         e("div", { className: "hero-content" },
-          e("h1", { className: "hero-title" }, "BIBLIOTECA DIGITAL DA AIDS"),
+          e("h1", { className: "hero-title" }, t(language, 'home.heroTitle')),
           e("p", { className: "hero-lede" },
-            "Acesse publicações sobre HIV e aids disponibilizadas pelo Ministério da Saúde do Brasil. "
+            t(language, 'home.heroDesc')
           )
         )
       )
@@ -220,17 +413,17 @@ function HomePage({ onNavigate, theme, onThemeToggle }) {
         e("article", {
           className: "choice-card glass-card card-hover",
           onClick: () => {
-            AnalyticsTracker.trackPageView('presentation', 'Apresentação');
+            AnalyticsTracker.trackPageView('presentation', t(language, 'apresentacao.title'));
             onNavigate("presentation");
           }
         },
           e("div", { className: "choice-icon" }, "📘"),
-          e("h2", { className: "choice-title" }, "Apresentação"),
+          e("h2", { className: "choice-title" }, t(language, 'home.cardApresentacao.title')),
           e("p", { className: "choice-desc" },
             ""
           ),
           e("div", { className: "actions" },
-            e("button", { className: "btn btn-primary" }, "Explorar")
+            e("button", { className: "btn btn-primary" }, t(language, 'home.cardApresentacao.button'))
           )
         ),
 
@@ -238,30 +431,36 @@ function HomePage({ onNavigate, theme, onThemeToggle }) {
         e("article", {
           className: "choice-card glass-card card-hover",
           onClick: () => {
-            AnalyticsTracker.trackPageView('books', 'Publicações');
+            AnalyticsTracker.trackPageView('books', t(language, 'home.cardPublicacoes.title'));
             onNavigate("books");
           }
         },
           e("div", { className: "choice-icon" }, "📚"),
-          e("h2", { className: "choice-title" }, "Publicações"),
+          e("h2", { className: "choice-title" }, t(language, 'home.cardPublicacoes.title')),
           e("p", { className: "choice-desc" },
             ""
           ),
           e("div", { className: "actions" },
-            e("button", { className: "btn btn-green" }, "Explorar") 
+            e("button", { className: "btn btn-green" }, t(language, 'home.cardPublicacoes.button'))
           )
         )
       )
     ),
 
     e("div", { className: "app-footer-line" },
-      `© 2025 Dezembro Vermelho • Ministério da Saúde • ${getAppVersion()}`
+      e("span", null, `${t(language, 'common.footer')} • ${getAppVersion()}`),
+      e("button", {
+        className: "footer-lang-toggle",
+        onClick: onLanguageToggle,
+        "aria-label": t(language, 'common.languageToggleAria'),
+        style: { marginLeft: '12px', fontSize: '0.875rem', cursor: 'pointer', background: 'none', border: 'none', color: 'inherit' }
+      }, language === 'en' ? '🇧🇷 PT' : '🇬🇧 EN')
     )
   );
 }
 
 /* ========== PRESENTATION PAGE ========== */
-function PresentationPage({ onNavigate, theme, onThemeToggle }) {
+function PresentationPage({ onNavigate, theme, onThemeToggle, language, onLanguageToggle }) {
   const [data, setData] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -275,15 +474,18 @@ function PresentationPage({ onNavigate, theme, onThemeToggle }) {
   const handleAudioToggle = () => {
     if (!data?.audioUrl) return;
     if (!isPlaying) {
-      AnalyticsTracker.trackAudioPlay('presentation', 'Apresentação da Biblioteca');
+      AnalyticsTracker.trackAudioPlay('presentation', t(language, 'apresentacao.title'));
     }
     audioPlayer.toggle(data.audioUrl, () => setIsPlaying(false));
     setIsPlaying(!isPlaying);
   };
 
+  // Hide audio button when English selected (audio not ready yet)
+  const showAudioButton = language === 'pt-br' && data?.audioUrl;
+
   if (!data) {
     return e("div", { className: "app-shell" },
-      e("div", { className: "page-body" }, "Carregando...")
+      e("div", { className: "page-body" }, t(language, 'apresentacao.loading'))
     );
   }
 
@@ -294,44 +496,55 @@ function PresentationPage({ onNavigate, theme, onThemeToggle }) {
         href: "#",
         className: "back-link",
         onClick: (ev) => { ev.preventDefault(); onNavigate("home"); }
-      }, "← Voltar"),
+      }, `← ${t(language, 'nav.voltar')}`),
       e("div", { className: "page-header-content" },
-        e("h1", { className: "page-title" }, "Apresentação"),
-        e("p", { className: "page-subtle" }, "Biblioteca da AIDS")
+        e("h1", { className: "page-title" }, t(language, 'apresentacao.title')),
+        e("p", { className: "page-subtle" }, t(language, 'apresentacao.subtitle'))
       ),
       e("button", {
         className: "theme-toggle-btn",
         onClick: onThemeToggle,
-        "aria-label": "Alternar tema"
-      }, theme === "light" ? "🌙" : "☀️")
+        "aria-label": t(language, 'common.themeToggleAria')
+      }, theme === "light" ? "🌙" : "☀️"),
+      e("button", {
+        className: "language-toggle-btn",
+        onClick: onLanguageToggle,
+        "aria-label": t(language, 'common.languageToggleAria')
+      }, language === 'en' ? '🇧🇷 PT' : '🇬🇧 EN')
     ),
 
     // Content
     e("div", { className: "presentation-card" },
       data.heroImage && e("div", { className: "presentation-heroimg-wrapper" },
-        e("img", { src: data.heroImage, alt: "Biblioteca Hero" })
+        e("img", { src: data.heroImage, alt: t(language, 'apresentacao.subtitle') })
       ),
 
-      e("div", { className: "presentation-textblock" }, data.content),
+      e("div", { className: "presentation-textblock" }, language === 'en' ? data.contentEn : data.content),
 
-      data.audioUrl && e("div", { className: "audio-row" },
+      showAudioButton && e("div", { className: "audio-row" },
         e("button", {
           className: "audio-btn",
           type: "button",
           "aria-pressed": isPlaying ? "true" : "false",
           onClick: handleAudioToggle
-        }, isPlaying ? "⏸️ Pausar" : "▶️ Audiodescrição")
+        }, isPlaying ? t(language, 'apresentacao.audioBtnPause') : t(language, 'apresentacao.audioBtnPlay'))
       )
     ),
 
     e("div", { className: "app-footer-line" },
-      `© 2025 Dezembro Vermelho • Ministério da Saúde • ${getAppVersion()}`
+      e("span", null, `${t(language, 'common.footer')} • ${getAppVersion()}`),
+      e("button", {
+        className: "footer-lang-toggle",
+        onClick: onLanguageToggle,
+        "aria-label": t(language, 'common.languageToggleAria'),
+        style: { marginLeft: '12px', fontSize: '0.875rem', cursor: 'pointer', background: 'none', border: 'none', color: 'inherit' }
+      }, language === 'en' ? '🇧🇷 PT' : '🇬🇧 EN')
     )
   );
 }
 
 /* ========== BOOKS LIST PAGE ========== */
-function BooksListPage({ onNavigate, theme, onThemeToggle }) {
+function BooksListPage({ onNavigate, theme, onThemeToggle, language, onLanguageToggle }) {
   const [books, setBooks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTag, setSelectedTag] = useState("");
@@ -390,14 +603,20 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
           href: "#",
           className: "back-link",
           onClick: (ev) => { ev.preventDefault(); onNavigate("home"); }
-        }, "← Voltar")
+        }, `← ${t(language, 'nav.voltar')}`)
       ),
-      e("div", { className: "app-header-title" }, "Biblioteca da AIDS"),
+      e("div", { className: "app-header-title" }, t(language, 'books.title')),
       e("button", {
         className: "theme-toggle-btn",
         onClick: onThemeToggle,
         style: { fontSize: ".8rem", padding: ".4rem .6rem" }
-      }, theme === "light" ? "🌙" : "☀️")
+      }, theme === "light" ? "🌙" : "☀️"),
+      e("button", {
+        className: "language-toggle-btn",
+        onClick: onLanguageToggle,
+        "aria-label": t(language, 'common.languageToggleAria'),
+        style: { fontSize: ".8rem", padding: ".4rem .6rem", marginLeft: '8px' }
+      }, language === 'en' ? '🇧🇷 PT' : '🇬🇧 EN')
     ),
 
     // Content
@@ -408,14 +627,14 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
           e("input", {
             type: "text",
             className: "search-input",
-            placeholder: "Buscar por título ou fonte...",
+            placeholder: t(language, 'books.searchPlaceholder'),
             value: searchTerm,
             onChange: (ev) => setSearchTerm(ev.target.value)
           }),
           searchTerm && e("button", {
             className: "search-clear-btn",
             onClick: () => setSearchTerm(""),
-            "aria-label": "Limpar busca"
+            "aria-label": t(language, 'books.clearBtn')
           }, "✕")
         ),
         allTags.map(tag =>
@@ -431,7 +650,7 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
       e("div", { className: "books-grid" },
         filteredBooks.length === 0
           ? e("p", { style: { color: "var(--color-text-secondary)" } },
-              "Nenhum resultado encontrado"
+              t(language, 'books.noResults')
             )
           : filteredBooks.map(book =>
               e("div", {
@@ -452,7 +671,7 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
                     : "📄"
                 ),
                 e("div", { className: "book-title" }, book.title),
-                e("div", { className: "book-meta" }, book.source || "Fonte não especificada"),
+                e("div", { className: "book-meta" }, book.source || t(language, 'bookDetail.sourceLabel')),
                 e("div", { className: "badge-row" },
                   book.pdfUrl && e("span", { className: "badge badge-pdf" }, "📄 PDF"),
                   book.audioUrl && e("span", { className: "badge badge-audio" }, "🎵 Áudio")
@@ -463,13 +682,19 @@ function BooksListPage({ onNavigate, theme, onThemeToggle }) {
     ),
 
     e("div", { className: "app-footer-line" },
-      `© 2025 Dezembro Vermelho • Ministério da Saúde • ${getAppVersion()}`
+      e("span", null, `${t(language, 'common.footer')} • ${getAppVersion()}`),
+      e("button", {
+        className: "footer-lang-toggle",
+        onClick: onLanguageToggle,
+        "aria-label": t(language, 'common.languageToggleAria'),
+        style: { marginLeft: '12px', fontSize: '0.875rem', cursor: 'pointer', background: 'none', border: 'none', color: 'inherit' }
+      }, language === 'en' ? '🇧🇷 PT' : '🇬🇧 EN')
     )
   );
 }
 
 /* ========== BOOK DETAIL PAGE ========== */
-function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
+function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle, language, onLanguageToggle }) {
   const [book, setBook] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -492,9 +717,12 @@ function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
     setIsPlaying(!isPlaying);
   };
 
+  // Hide audio button when English selected (audio not ready yet)
+  const showAudioButton = language === 'pt-br' && book?.audioUrl;
+
   if (!book) {
     return e("div", { className: "app-shell" },
-      e("div", { className: "page-body" }, "Carregando...")
+      e("div", { className: "page-body" }, t(language, 'bookDetail.loading'))
     );
   }
 
@@ -506,14 +734,20 @@ function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
           href: "#",
           className: "back-link",
           onClick: (ev) => { ev.preventDefault(); onNavigate("books"); }
-        }, "← Voltar")
+        }, `← ${t(language, 'nav.voltar')}`)
       ),
       e("div", { className: "app-header-title" }, book.title),
       e("button", {
         className: "theme-toggle-btn",
         onClick: onThemeToggle,
         style: { fontSize: ".8rem", padding: ".4rem .6rem" }
-      }, theme === "light" ? "🌙" : "☀️")
+      }, theme === "light" ? "🌙" : "☀️"),
+      e("button", {
+        className: "language-toggle-btn",
+        onClick: onLanguageToggle,
+        "aria-label": t(language, 'common.languageToggleAria'),
+        style: { fontSize: ".8rem", padding: ".4rem .6rem", marginLeft: '8px' }
+      }, language === 'en' ? '🇧🇷 PT' : '🇬🇧 EN')
     ),
 
     // Content
@@ -529,9 +763,9 @@ function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
         ),
 
         e("h1", { className: "bookdetail-title" }, book.title),
-        
+
         e("div", { className: "bookdetail-source" },
-          e("span", {}, book.source || "Fonte não especificada"),
+          e("span", {}, book.source || t(language, 'bookDetail.sourceLabel')),
           book.year && e("span", {}, ` – ${book.year}`)
         ),
 
@@ -542,27 +776,33 @@ function BookDetailPage({ bookId, onNavigate, theme, onThemeToggle }) {
             rel: "noopener noreferrer",
             className: "btn-open-pdf",
             onClick: () => AnalyticsTracker.trackPdfOpen(book.title, book.pdfUrl)
-          }, "📄 Abrir PDF"),
+          }, t(language, 'bookDetail.openPdf')),
 
-          book.audioUrl && e("button", {
+          showAudioButton && e("button", {
             className: "btn-audio",
             type: "button",
             "aria-pressed": isPlaying ? "true" : "false",
             onClick: handleAudioToggle
-          }, isPlaying ? "⏸️ Pausar" : "▶️ Audiodescrição")
+          }, isPlaying ? t(language, 'bookDetail.audioBtnPause') : t(language, 'bookDetail.audioBtnPlay'))
         ),
 
         // Description
         e("div", { style: { marginTop: "2rem" } },
           e("div", { className: "bookdetail-textblock" },
-            book.description || "Descrição não disponível."
+            book.description || t(language, 'bookDetail.descriptionLabel')
           )
         )
       )
     ),
 
     e("div", { className: "app-footer-line" },
-      `© 2025 Dezembro Vermelho • Ministério da Saúde • ${getAppVersion()}`
+      e("span", null, `${t(language, 'common.footer')} • ${getAppVersion()}`),
+      e("button", {
+        className: "footer-lang-toggle",
+        onClick: onLanguageToggle,
+        "aria-label": t(language, 'common.languageToggleAria'),
+        style: { marginLeft: '12px', fontSize: '0.875rem', cursor: 'pointer', background: 'none', border: 'none', color: 'inherit' }
+      }, language === 'en' ? '🇧🇷 PT' : '🇬🇧 EN')
     )
   );
 }
@@ -578,6 +818,7 @@ function App() {
     return { page: "home", params: null };
   });
   const [theme, setTheme] = useState(() => ThemeManager.init());
+  const { language, toggleLanguage } = useLanguage();
 
   // Listen to hash changes
   useEffect(() => {
@@ -598,13 +839,13 @@ function App() {
   useEffect(() => {
     const pageNames = {
       home: 'Home',
-      presentation: 'Apresentação',
-      books: 'Publicações',
-      book: 'Detalhes da Publicação'
+      presentation: t(language, 'apresentacao.title'),
+      books: t(language, 'home.cardPublicacoes.title'),
+      book: 'Book Details'
     };
     const pageName = pageNames[route.page] || 'Unknown Page';
     AnalyticsTracker.trackPageView(route.page, pageName);
-  }, [route]);
+  }, [route, language]);
 
   const navigate = (page, params = null) => {
     setRoute({ page, params });
@@ -628,37 +869,47 @@ function App() {
 
   // Render current page
   let pageComponent;
-  
+
   if (route.page === "home") {
     pageComponent = e(HomePage, {
       onNavigate: navigate,
       theme,
-      onThemeToggle: handleThemeToggle
+      onThemeToggle: handleThemeToggle,
+      language,
+      onLanguageToggle: toggleLanguage
     });
   } else if (route.page === "presentation") {
     pageComponent = e(PresentationPage, {
       onNavigate: navigate,
       theme,
-      onThemeToggle: handleThemeToggle
+      onThemeToggle: handleThemeToggle,
+      language,
+      onLanguageToggle: toggleLanguage
     });
   } else if (route.page === "books") {
     pageComponent = e(BooksListPage, {
       onNavigate: navigate,
       theme,
-      onThemeToggle: handleThemeToggle
+      onThemeToggle: handleThemeToggle,
+      language,
+      onLanguageToggle: toggleLanguage
     });
   } else if (route.page === "book") {
     pageComponent = e(BookDetailPage, {
       bookId: route.params,
       onNavigate: navigate,
       theme,
-      onThemeToggle: handleThemeToggle
+      onThemeToggle: handleThemeToggle,
+      language,
+      onLanguageToggle: toggleLanguage
     });
   } else {
     pageComponent = e(HomePage, {
       onNavigate: navigate,
       theme,
-      onThemeToggle: handleThemeToggle
+      onThemeToggle: handleThemeToggle,
+      language,
+      onLanguageToggle: toggleLanguage
     });
   }
 
